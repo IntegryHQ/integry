@@ -1,6 +1,8 @@
 # Integry Python API Library
 
-The Python API library allows access to Integry REST API from Python programs.
+[![PyPI version](https://img.shields.io/pypi/v/integry.svg)](https://pypi.org/project/integry/)
+
+The Python API library allows access to [Integry REST API](https://docs.integry.ai/apis-and-sdks/api-reference) from Python programs.
 
 # Installation
 
@@ -24,7 +26,9 @@ integry = Integry(
 )
 
 # Get the most relevant function
-predictions = await integry.functions.predict(prompt="say hello to my team on Slack", user_id=user_id, predict_arguments=True)
+predictions = await integry.functions.predict(
+    prompt="say hello to my team on Slack", user_id=user_id, predict_arguments=True
+)
 
 if predictions:
     function = predictions[0]
