@@ -1,0 +1,13 @@
+.vscode
+
+__pycache__
+.mypy_cache
+
+dist
+
+.venv
+.idea
+
+.env
+.envrc
+*.nix

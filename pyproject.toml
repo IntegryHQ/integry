@@ -1,0 +1,22 @@
+[project]
+name = "integry"
+version = "0.0.1"
+authors = [
+  { name="Integry", email="hello@integry.io" },
+]
+description = "The official Python library for the Integry API"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/IntegryHQ/integry-python"
+Issues = "https://github.com/IntegryHQ/integry-python/issues"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
