@@ -44,7 +44,7 @@ ResourcePage = TypeVar("ResourcePage", bound=BaseModel)
 
 
 class AsyncPaginator(AsyncIterator[ResourceModel], Awaitable[ResourcePage]):
-    _cursor_key = "_next_page"
+    _cursor_key = "_cursor"
 
     def __init__(
         self,

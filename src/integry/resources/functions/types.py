@@ -50,7 +50,7 @@ class FunctionCallOutput(BaseModel):
 
 
 class PaginatedFunctionCallOutput(FunctionCallOutput):
-    _next_page: str
+    _cursor: str
 
 
 class Function(BaseModel):
