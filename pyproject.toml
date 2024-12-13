@@ -6,8 +6,15 @@ authors = [
 ]
 description = "The official Python library for the Integry API"
 readme = "README.md"
+
 requires-python = ">=3.8"
+dependencies = [
+    "httpx>=0.27.0, <1",
+    "pydantic>=2.9.0, <3",
+]
 classifiers = [
+    "Typing :: Typed",
+    "Intended Audience :: Developers",
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
