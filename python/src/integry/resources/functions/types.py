@@ -59,12 +59,25 @@ class Function(BaseModel):
     parameters: JSONSchemaType
     arguments: dict[str, Any] = Field(default_factory=dict)
 
+    _json_schema: dict
     _resource: "FunctionsResource"
 
     def __init__(self, **data: Any):
         super().__init__(**data)
+
         if isinstance(data, dict):
-            self._resource = data["_resource"]
+            self._resource = data.pop("_resource")
+
+        self._json_schema = data
+
+    def get_json_schema(self) -> dict:
+        """
+        Retrieve the JSON schema.
+
+        Returns:
+            The JSON schema.
+        """
+        return self._json_schema
 
     async def __call__(
         self,
