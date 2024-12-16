@@ -1,5 +1,5 @@
 {
-  "name": "integry",
+  "name": "@integry/server-sdk",
   "version": "1.0.0",
   "description": "Integry server side SDK.",
   "main": "dist/index.js",
