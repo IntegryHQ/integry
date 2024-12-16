@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "lib": ["ES2020"],
+    "allowJs": true,
+    "checkJs": false,
+    "outDir": "./dist", // Ensure this points to the dist folder
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "declaration": true // To generate .d.ts files
+  },
+  "include": ["src/**/*.ts"], // Only include TypeScript files in src
+  "exclude": ["node_modules", "dist"]
+}
