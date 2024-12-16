@@ -1,11 +1,11 @@
 import integry from "../integry";
 
 interface AppGetOptions {
-  userId: string;
+  user_id: string;
 }
 
 interface AppsListOptions {
-  userId: string;
+  user_id: string;
   _cursor?: string;
   connected_only?: boolean;
 }
@@ -22,12 +22,12 @@ export class Apps {
    * @param appName The name of the app to retrieve.
    * @param options The options for fetching the app.
    */
-  async get(appName: string, options: AppGetOptions = { userId: "" }) {
-    const { userId, ...queryParams } = options;
+  async get(appName: string, options: AppGetOptions = { user_id: "" }) {
+    const { user_id, ...queryParams } = options;
     const response = await this.integry.client.makeRequest({
       method: "POST",
       url: `/apps/${appName}/get`,
-      headers: this.integry.getHeaders(userId),
+      headers: this.integry.getHeaders(user_id),
       params: queryParams,
     });
     return response.data;
@@ -38,8 +38,8 @@ export class Apps {
    * @param options - The options for fetching the apps.
    * @param iterable - If true, returns the raw response with pagination data; otherwise, returns an iterable of apps.
    */
-  async list(options: AppsListOptions = { userId: "" }, iterable = false) {
-    const { userId, ...queryParams } = options;
+  async list(options: AppsListOptions = { user_id: "" }, iterable = false) {
+    const { user_id, ...queryParams } = options;
     let cursor = "";
     const allApps: any[] = [];
 
@@ -54,7 +54,7 @@ export class Apps {
       const response = await this.integry.client.makeRequest({
         method: "POST",
         url: "/apps/list",
-        headers: this.integry.getHeaders(userId),
+        headers: this.integry.getHeaders(user_id),
         params: queryParams,
       });
 

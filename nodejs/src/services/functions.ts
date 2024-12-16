@@ -1,14 +1,14 @@
 import integry from "../integry";
 
 interface FunctionsGetOptions {
-  userId: string;
+  user_id: string;
   include?: string;
   prompt?: string;
   variables?: object;
 }
 
 interface FunctionsListOptions {
-  userId: string;
+  user_id: string;
   app?: string;
   type?: string;
   _cursor?: string;
@@ -17,7 +17,7 @@ interface FunctionsListOptions {
 }
 
 interface FunctionPredictOptions {
-  userId: string;
+  user_id: string;
   prompt?: string;
   predict_arguments?: boolean;
   include?: string;
@@ -25,7 +25,7 @@ interface FunctionPredictOptions {
 }
 
 interface FunctionCallOptions {
-  userId: string;
+  user_id: string;
   params: object;
   connected_account_id?: string;
   variables?: object;
@@ -45,13 +45,13 @@ export class Functions {
    */
   async get(
     functionName: string,
-    options: FunctionsGetOptions = { userId: "" }
+    options: FunctionsGetOptions = { user_id: "" }
   ) {
-    const { userId, prompt, variables, ...queryParams } = options;
+    const { user_id, prompt, variables, ...queryParams } = options;
     const response = await this.integry.client.makeRequest({
       method: "POST",
       url: `/functions/${functionName}/get`,
-      headers: this.integry.getHeaders(userId),
+      headers: this.integry.getHeaders(user_id),
       params: queryParams,
       data: { prompt: prompt, _variables: variables },
     });
@@ -63,8 +63,11 @@ export class Functions {
    * @param options - The options for fetching the functions.
    * @param iterable - If true, returns the raw response with pagination data; otherwise, returns an iterable of functions.
    */
-  async list(options: FunctionsListOptions = { userId: "" }, iterable = false) {
-    const { userId, ...queryParams } = options;
+  async list(
+    options: FunctionsListOptions = { user_id: "" },
+    iterable = false
+  ) {
+    const { user_id, ...queryParams } = options;
     let cursor = "";
     const allFunctions: any[] = [];
 
@@ -79,7 +82,7 @@ export class Functions {
       const response = await this.integry.client.makeRequest({
         method: "POST",
         url: "/functions/list",
-        headers: this.integry.getHeaders(userId),
+        headers: this.integry.getHeaders(user_id),
         params: queryParams,
       });
 
@@ -104,12 +107,12 @@ export class Functions {
    * @param options The options for predicting the function.
    * @returns The most relevant function for the prompt.
    */
-  async predict(options: FunctionPredictOptions = { userId: "" }) {
-    const { userId, prompt, variables, ...queryParams } = options;
+  async predict(options: FunctionPredictOptions = { user_id: "" }) {
+    const { user_id, prompt, variables, ...queryParams } = options;
     const response = await this.integry.client.makeRequest({
       method: "POST",
       url: "/functions/predict",
-      headers: this.integry.getHeaders(userId),
+      headers: this.integry.getHeaders(user_id),
       params: queryParams,
       data: { prompt: prompt, _variables: variables },
     });
@@ -123,13 +126,13 @@ export class Functions {
    */
   async call(
     functionName: string,
-    options: FunctionCallOptions = { userId: "", params: {} }
+    options: FunctionCallOptions = { user_id: "", params: {} }
   ) {
-    const { userId, params, variables, ...queryParams } = options;
+    const { user_id, params, variables, ...queryParams } = options;
     const response = await this.integry.client.makeRequest({
       method: "POST",
       url: `/functions/${functionName}/call`,
-      headers: this.integry.getHeaders(userId),
+      headers: this.integry.getHeaders(user_id),
       params: queryParams,
       data: { ...params, _variables: variables },
     });
