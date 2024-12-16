@@ -107,7 +107,7 @@ class Functions(BaseResource):
 
         data = self._get_response_data_or_raise(response)
 
-        if "next_page" in data:
+        if "_cursor" in data:
             return PaginatedFunctionCallOutput(**data)
 
         return FunctionCallOutput(**data)
