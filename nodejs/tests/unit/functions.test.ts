@@ -13,7 +13,6 @@ describe("IntegrySDK", () => {
   it("should fetch list of all functions", async () => {
     const functions = await sdk.functions.list({
       userId: userId,
-      app: "slack",
     });
     expect(functions).toBeDefined();
     expect(functions).toHaveProperty("functions");
