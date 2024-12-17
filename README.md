@@ -41,7 +41,7 @@ if predictions:
 ## 1. Installation
 
 ```bash
-# install from PyPI
+# install from npm
 npm install integry
 ```
 
