@@ -90,16 +90,24 @@ class Function(BaseModel):
         """
         return self._json_schema
 
-    def _get_callable(self, user_id: str):
-        return FunctionCallable(self._resource, self.name, user_id)
+    def _get_callable(self, user_id: str, variables: Optional[dict[str, Any]] = None):
+        return FunctionCallable(self._resource, self.name, user_id, variables)
 
-    def as_langchain_tool[T](self, from_function: Callable[..., T], user_id: str) -> T:
+    def as_langchain_tool[
+        T
+    ](
+        self,
+        from_function: Callable[..., T],
+        user_id: str,
+        variables: Optional[dict[str, Any]] = None,
+    ) -> T:
         """
         Returns a LangChain tool for the function.
 
         Args:
             from_function: This should be LangChain's `StructuredTool.from_function` method.
             user_id: The user ID of the user on whose behalf the function will be called.
+            variables: The variables to use for mapping the arguments, if applicable.
 
         Returns:
             The LangChain tool.
@@ -109,7 +117,7 @@ class Function(BaseModel):
         )
 
         tool = from_function(
-            coroutine=self._get_callable(user_id),
+            coroutine=self._get_callable(user_id, variables),
             name=self.name,
             description=self.description,
             args_schema=argument_schema,
