@@ -1,4 +1,4 @@
-import integry from "@integry/server-sdk";
+import integry from "../../dist/integry";
 
 const appKey = "<YOUR-INTEGRY-APP-KEY>";
 const appSecret = "YOUR-INTEGRY-APP-SECRET";
@@ -12,7 +12,7 @@ describe("IntegrySDK", () => {
 
   it("should fetch list of all apps", async () => {
     const apps = await sdk.apps.list({
-      userId: userId,
+      user_id: userId,
     });
     expect(apps).toBeDefined();
     expect(apps).toHaveProperty("apps");
@@ -32,7 +32,7 @@ describe("IntegrySDK", () => {
   it("should fetch a specific app", async () => {
     const appName = "slack";
     const appDetails = await sdk.apps.get(appName, {
-      userId: userId,
+      user_id: userId,
     });
     expect(appDetails).toBeDefined();
     expect(appDetails).toBeInstanceOf(Object);

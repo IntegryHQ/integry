@@ -1,4 +1,4 @@
-import integry from "@integry/server-sdk";
+import integry from "../../dist/integry";
 
 const appKey = "<YOUR-INTEGRY-APP-KEY>";
 const appSecret = "YOUR-INTEGRY-APP-SECRET";
@@ -12,7 +12,7 @@ describe("IntegrySDK", () => {
 
   it("should fetch list of all functions", async () => {
     const functions = await sdk.functions.list({
-      userId: userId,
+      user_id: userId,
     });
     expect(functions).toBeDefined();
     expect(functions).toHaveProperty("functions");
@@ -26,7 +26,7 @@ describe("IntegrySDK", () => {
   it("should fetch a specific function", async () => {
     const functionName = "slack-post-message";
     const functionSpec = await sdk.functions.get(functionName, {
-      userId: userId,
+      user_id: userId,
     });
     expect(functionSpec).toBeDefined();
     expect(functionSpec).toBeInstanceOf(Object);
@@ -38,7 +38,7 @@ describe("IntegrySDK", () => {
   it("should predict a function based on the passed prompt", async () => {
     const prompt = "Post a message to slack";
     const prediction = await sdk.functions.predict({
-      userId: userId,
+      user_id: userId,
       prompt: prompt,
     });
     expect(prediction).toBeDefined();
@@ -63,7 +63,7 @@ describe("IntegrySDK", () => {
       name: "Integry",
     };
     const response = await sdk.functions.call(functionName, {
-      userId: userId,
+      user_id: userId,
       connected_account_id: connected_account_id,
       params: params,
       variables: variables,
