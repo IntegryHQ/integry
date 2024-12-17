@@ -11,7 +11,48 @@ Access [Integry REST API](https://docs.integry.ai/apis-and-sdks/api-reference) f
 pip install integry
 ```
 
-## 2. Usage
+## 2. Usage with Agent Frameworks
+
+### 1. LangChain/LangGraph
+
+```python
+import os
+from integry import Integry
+from langchain_core.messages import SystemMessage, HumanMessage
+from langchain_openai import ChatOpenAI
+from langchain_core.tools import StructuredTool
+
+user_id = "your user's ID"
+
+# Initialize the client
+integry = Integry(
+    app_key=os.environ.get("INTEGRY_APP_SECRET"),
+    app_secret=os.environ.get("INTEGRY_APP_KEY"),
+)
+
+slack_post_message = await integry.functions.get("slack-post-message", user_id)
+
+llm = ChatOpenAI(
+    model="gpt-4o",
+    api_key=os.environ.get("OPENAI_API_KEY"),
+)
+
+tool = slack_post_message.as_langchain_tool(StructuredTool.from_function, user_id)
+
+agent = create_react_agent(
+    tools=[tool],
+    model=llm,
+)
+
+await agent.ainvoke({
+    "messages": [
+        SystemMessage(content="You are a helpful assistant"),
+        HumanMessage(content="Say hello to my team on slack"),
+    ]
+})
+```
+
+## 3. Prediction
 
 ```python
 import os

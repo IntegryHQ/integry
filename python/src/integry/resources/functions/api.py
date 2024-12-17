@@ -97,6 +97,25 @@ class Functions(BaseResource):
         user_id: str,
         variables: Optional[dict[str, Any]] = None,
     ) -> FunctionCallOutput:
+        """
+        Calls a function with the given arguments and variables.
+
+        Args:
+            function_name: The name of the function to call.
+            arguments: Values for the function's parameters.
+            user_id: The user ID of the user on whose behalf the function will be called.
+            variables: The variables to pass to the function, if any.
+
+        Returns:
+            The function's output.
+        """
+
+        if "cursor" in arguments:
+            # LangChain doesn't support aliases in the arguments schema, so we
+            # handle the cursor parameter.
+            # TODO: Remove this once LangChain supports aliases in the arguments schema.
+            arguments["_cursor"] = arguments["cursor"]
+
         response = await self.http_client.post(
             f"{self.name}/{function_name}/call/",
             headers=self._get_signed_request_headers(user_id),

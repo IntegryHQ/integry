@@ -1,5 +1,4 @@
-import hashlib
-import hmac
+import hashlib, hmac
 
 
 def get_hash(app_secret: str, user_id: str):
