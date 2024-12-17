@@ -1,4 +1,4 @@
-from typing import Type, Any
+from typing import Optional, Type, Any
 from pydantic import BaseModel, Field, create_model
 from pydantic.fields import FieldInfo
 from pydantic_core import PydanticUndefined
@@ -86,6 +86,9 @@ def get_pydantic_field_from_json_schema(
     _type = get_pydantic_type_from_json_schema(
         json_schema,
     )
+
+    if name not in required:
+        _type = Optional[_type]
 
     field_info = (
         _type,
