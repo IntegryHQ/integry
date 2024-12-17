@@ -1,13 +1,13 @@
 [project]
 name = "integry"
-version = "0.0.4"
+version = "0.0.5"
 authors = [
   { name="Integry", email="hello@integry.io" },
 ]
 description = "The official Python library for the Integry API"
 readme = "README.md"
 
-requires-python = ">=3.8"
+requires-python = ">=3.12"
 dependencies = [
     "httpx>=0.27.0, <1",
     "pydantic>=2.9.0, <3",
@@ -15,7 +15,7 @@ dependencies = [
 classifiers = [
     "Typing :: Typed",
     "Intended Audience :: Developers",
-    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
     "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
 ]
