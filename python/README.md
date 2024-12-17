@@ -27,8 +27,8 @@ user_id = "your user's ID"
 
 # Initialize the client
 integry = Integry(
-    app_key=os.environ.get("INTEGRY_APP_SECRET"),
-    app_secret=os.environ.get("INTEGRY_APP_KEY"),
+    app_key=os.environ.get("INTEGRY_APP_KEY"),
+    app_secret=os.environ.get("INTEGRY_APP_SECRET"),
 )
 
 slack_post_message = await integry.functions.get("slack-post-message", user_id)
@@ -54,6 +54,55 @@ await agent.ainvoke({
 
 ```
 
+## 2. CrewAI
+
+```python
+import os
+from integry import Integry
+from crewai import Agent, Task, Crew, LLM
+from crewai.tools.structured_tool import CrewStructuredTool
+
+user_id = "your user's ID"
+
+# Initialize the client
+integry = Integry(
+    app_key=os.environ.get("INTEGRY_APP_KEY"),
+    app_secret=os.environ.get("INTEGRY_APP_SECRET"),
+)
+
+slack_post_message = await integry.functions.get("slack-post-message", user_id)
+
+tools = [
+    slack_post_message.as_langchain_tool(CrewStructuredTool.from_function, user_id)
+]
+
+llm = LLM(
+    model="gpt-4o",
+    temperature=0,
+    base_url="https://api.openai.com/v1",
+    api_key=os.environ.get("OPENAI_API_KEY"),
+)
+
+crewai_agent = Agent(
+    role="Integration Assistant",
+    goal="Help users achieve their goal by performing their required task in various apps",
+    backstory="You are a virtual assistant with access to various apps and services. You are known for your ability to connect to any app and perform any task.",
+    verbose=True,
+    tools=tools,
+    llm=llm,
+)
+
+task = Task(
+    description="Say hello to my team on slack",
+    agent=crewai_agent,
+    expected_output="Result of the task",
+)
+
+crew = Crew(agents=[crewai_agent], tasks=[task])
+
+result = crew.kickoff()
+```
+
 # Prediction
 ```python
 import os
@@ -63,8 +112,8 @@ user_id = "your user's ID"
 
 # Initialize the client
 integry = Integry(
-    app_secret=os.environ.get("INTEGRY_APP_KEY"),
-    app_key=os.environ.get("INTEGRY_APP_SECRET"),
+    app_key=os.environ.get("INTEGRY_APP_KEY"),
+    app_secret=os.environ.get("INTEGRY_APP_SECRET"),
 )
 
 # Get the most relevant function
@@ -86,8 +135,8 @@ from integry import Integry
 user_id = "your user's ID"
 
 integry = Integry(
-    app_secret=os.environ.get("INTEGRY_APP_KEY"),
-    app_key=os.environ.get("INTEGRY_APP_SECRET"),
+    app_key=os.environ.get("INTEGRY_APP_KEY"),
+    app_secret=os.environ.get("INTEGRY_APP_SECRET"),
 )
 
 async for function in integry.functions.list(user_id):
@@ -102,8 +151,8 @@ from integry import Integry
 user_id = "your user's ID"
 
 integry = Integry(
-    app_secret=os.environ.get("INTEGRY_APP_KEY"),
-    app_key=os.environ.get("INTEGRY_APP_SECRET"),
+    app_key=os.environ.get("INTEGRY_APP_KEY"),
+    app_secret=os.environ.get("INTEGRY_APP_SECRET"),
 )
 
 first_page = await integry.apps.list(user_id)
