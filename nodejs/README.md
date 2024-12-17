@@ -19,3 +19,11 @@ const functions = await sdk.functions.list({
 });
 console.log(functions);
 ```
+
+## Run tests
+
+```bash
+npm install --save-dev jest ts-jest @types/jest typescript
+npx ts-jest config:init
+npx jest
+```
