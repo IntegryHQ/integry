@@ -93,6 +93,14 @@ class Function(BaseModel):
     def _get_callable(self, user_id: str, variables: Optional[dict[str, Any]] = None):
         return FunctionCallable(self._resource, self.name, user_id, variables)
 
+    def _get_sync_callable(
+        self, user_id: str, variables: Optional[dict[str, Any]] = None
+    ):
+        def sync_callable(**arguments: dict[str, Any]) -> FunctionCallOutput:
+            return self._resource.call_sync(self.name, arguments, user_id, variables)
+
+        return sync_callable
+
     def as_langchain_tool[
         T
     ](
@@ -118,6 +126,7 @@ class Function(BaseModel):
 
         tool = from_function(
             coroutine=self._get_callable(user_id, variables),
+            func=self._get_sync_callable(user_id, variables),
             name=self.name,
             description=self.description,
             args_schema=argument_schema,
