@@ -88,7 +88,7 @@ def get_pydantic_field_from_json_schema(
     )
 
     if name not in required:
-        _type = Optional[_type]
+        default = None
 
     field_info = (
         _type,
