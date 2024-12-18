@@ -1,6 +1,6 @@
 # AutoGen
 
-## Post a message on Slack using Integry and LangChain/LangGraph
+## Post a message on Slack using Integry and AutoGen
 
 ## 1. Install Integry
 
@@ -8,7 +8,7 @@
 pip install integry
 ```
 
-## 2. Initialize Agent
+## 2. Initialize Integry & Agent
 
 ```python
 import os

@@ -8,7 +8,7 @@
 pip install integry
 ```
 
-## 2. Initialize Agent
+## 2. Initialize Integry & LLM
 
 ```python
 import os

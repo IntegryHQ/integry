@@ -18,7 +18,6 @@ from crewai.tools.structured_tool import CrewStructuredTool
 
 user_id = "your user's ID"
 
-# Initialize the client
 integry = Integry(
     app_key=os.environ.get("INTEGRY_APP_KEY"),
     app_secret=os.environ.get("INTEGRY_APP_SECRET"),
@@ -32,7 +31,7 @@ llm = LLM(
 )
 ```
 
-## 3. Initialize Agent with Function as Tool
+## 3. Initialize Agent with an Integry Function as a Tool
 
 ```python
 slack_post_message = await integry.functions.get("slack-post-message", user_id)
