@@ -9,6 +9,7 @@ from typing import (
     Optional,
     Annotated,
     TYPE_CHECKING,
+    cast,
 )
 
 from integry.utils.pydantic import get_pydantic_model_from_json_schema
@@ -132,6 +133,46 @@ class Function(BaseModel):
             args_schema=argument_schema,
         )
         return tool
+
+    def register_with_autogen_agents(
+        self,
+        register_function: Callable[..., None],
+        caller: Any,
+        executor: Any,
+        user_id: str,
+        variables: Optional[dict[str, Any]] = None,
+    ):
+        """
+        Registers the function with AutoGen caller and executor agents.
+
+        Args:
+            register_function: This should be AutoGen's `register_function` function (`from autogen import register_function`).
+            caller: The caller agent.
+            executor: The executor agent.
+            user_id: The ID of the user on whose behalf the function will be called.
+            variables: The variables to use for mapping the arguments, if applicable.
+
+        """
+        argument_schema = get_pydantic_model_from_json_schema(
+            json_schema=self.get_json_schema()["parameters"],
+        )
+
+        async def autogen_function(input: Annotated[argument_schema, f"Input to the {self.name}."]) -> FunctionCallOutput:  # type: ignore
+            args = cast(BaseModel, input).model_dump(by_alias=True, exclude_unset=True)
+            return await self._resource.call(
+                self.name,
+                args,
+                user_id,
+                variables,
+            )
+
+        register_function(
+            autogen_function,
+            caller=caller,
+            executor=executor,
+            name=self.name,
+            description=self.description,
+        )
 
     async def __call__(
         self,
