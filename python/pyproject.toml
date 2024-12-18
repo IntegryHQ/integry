@@ -1,6 +1,6 @@
 [project]
 name = "integry"
-version = "0.0.5"
+version = "0.0.6"
 authors = [
   { name="Integry", email="hello@integry.io" },
 ]
@@ -21,8 +21,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/IntegryHQ/integry-python"
-Issues = "https://github.com/IntegryHQ/integry-python/issues"
+Homepage = "https://github.com/IntegryHQ/integry"
+Issues = "https://github.com/IntegryHQ/integry/issues"
 
 [build-system]
 requires = ["hatchling"]
