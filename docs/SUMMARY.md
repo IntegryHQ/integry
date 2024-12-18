@@ -109,6 +109,10 @@
 * [Access Control and Testing](functions/access-control-and-testing.md)
 * [Viewing Function Calls](functions/viewing-function-calls.md)
 * [Source Functions](functions/source-functions.md)
+* [Agent Frameworks](functions/agent-frameworks/README.md)
+  * [LangChain/LangGraph](functions/agent-frameworks/langchain-langgraph.md)
+  * [CrewAI](functions/agent-frameworks/crewai.md)
+  * [AutoGen](functions/agent-frameworks/autogen.md)
 
 ## Flows
 
