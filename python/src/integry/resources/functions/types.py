@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
 from typing import (
     Any,
+    Awaitable,
     Callable,
     Dict,
     List,
@@ -91,18 +92,7 @@ class Function(BaseModel):
         """
         return self._json_schema
 
-    def _get_callable(self, user_id: str, variables: Optional[dict[str, Any]] = None):
-        return FunctionCallable(self._resource, self.name, user_id, variables)
-
-    def _get_sync_callable(
-        self, user_id: str, variables: Optional[dict[str, Any]] = None
-    ):
-        def sync_callable(**arguments: dict[str, Any]) -> FunctionCallOutput:
-            return self._resource.call_sync(self.name, arguments, user_id, variables)
-
-        return sync_callable
-
-    def as_langchain_tool[
+    def get_langchain_tool[
         T
     ](
         self,
@@ -143,7 +133,7 @@ class Function(BaseModel):
         variables: Optional[dict[str, Any]] = None,
     ):
         """
-        Registers the function with AutoGen caller and executor agents.
+        Registers the function as a tool with AutoGen caller and executor agents.
 
         Args:
             register_function: This should be AutoGen's `register_function` function (`from autogen import register_function`).
@@ -182,27 +172,22 @@ class Function(BaseModel):
     ) -> FunctionCallOutput:
         return await self._resource.call(self.name, arguments, user_id, variables)
 
+    def _get_callable(
+        self, user_id: str, variables: Optional[dict[str, Any]] = None
+    ) -> Callable[..., Awaitable[FunctionCallOutput]]:
 
-class FunctionCallable:
-    def __init__(
-        self,
-        resource: "FunctionsResource",
-        name: str,
-        user_id: str,
-        variables: Optional[dict[str, Any]] = None,
+        async def callable(**arguments: dict[str, Any]) -> FunctionCallOutput:
+            return await self._resource.call(self.name, arguments, user_id, variables)
+
+        return callable
+
+    def _get_sync_callable(
+        self, user_id: str, variables: Optional[dict[str, Any]] = None
     ):
-        self._resource = resource
-        self._name = name
-        self._user_id = user_id
-        self._variables = variables
+        def sync_callable(**arguments: dict[str, Any]) -> FunctionCallOutput:
+            return self._resource.call_sync(self.name, arguments, user_id, variables)
 
-    async def __call__(
-        self,
-        **arguments: dict[str, Any],
-    ) -> FunctionCallOutput:
-        return await self._resource.call(
-            self._name, arguments, self._user_id, self._variables
-        )
+        return sync_callable
 
 
 class FunctionsPage(BaseModel):

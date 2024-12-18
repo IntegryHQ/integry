@@ -38,7 +38,7 @@ llm = ChatOpenAI(
     api_key=os.environ.get("OPENAI_API_KEY"),
 )
 
-tool = slack_post_message.as_langchain_tool(StructuredTool.from_function, user_id)
+tool = slack_post_message.get_langchain_tool(StructuredTool.from_function, user_id)
 
 agent = create_react_agent(
     tools=[tool],
@@ -73,7 +73,7 @@ integry = Integry(
 slack_post_message = await integry.functions.get("slack-post-message", user_id)
 
 tools = [
-    slack_post_message.as_langchain_tool(CrewStructuredTool.from_function, user_id)
+    slack_post_message.get_langchain_tool(CrewStructuredTool.from_function, user_id)
 ]
 
 llm = LLM(

@@ -26,7 +26,20 @@ class Functions(BaseResource):
         cursor: str = "",
         include: Optional[IncludeOptions] = None,
     ) -> AsyncPaginator[Function, FunctionsPage]:
+        """
+        Lists all functions.
 
+        Args:
+            user_id: The ID of the user.
+            app: The name of the app to filter the functions by.
+            connected_only: Whether to consider only the functions of the user's connected apps.
+            type: The type to filter functions by.
+            cursor: Provide  the cursor from last page to fetch the next page of functions.
+            include: The fields to include with the functions.
+
+        Returns:
+            List of functions.
+        """
         query_string = self._get_query_string(include, app, connected_only, type)
         return AsyncPaginator(
             self,
@@ -46,16 +59,31 @@ class Functions(BaseResource):
         connected_only: Optional[bool] = False,
         include: Optional[IncludeOptions] = None,
     ) -> List[Function]:
+        """
+        Predicts a function based on the given prompt.
+
+        Args:
+            prompt: The prompt to use for predicting the function.
+            user_id: The ID of the user.
+            variables: The variables to use for auto-mapping the arguments.
+                Omit if you don't want to auto-map the arguments.
+            predict_arguments: Whether to predict the function's arguments.
+            connected_only: Whether to consider only the functions of the user's connected apps.
+            include: The fields to include with the function.
+
+        Returns:
+            A list containing the predicted function, or an empty list if no function was predicted.
+        """
         query_string = self._get_query_string(
             include, None, connected_only, None, predict_arguments
         )
 
-        body: dict = {"prompt": prompt}
+        body: dict[str, Any] = {"prompt": prompt}
         if variables:
             body["_variables"] = variables
 
         response = await self.http_client.post(
-            f"functions/predict/{query_string}",
+            f"{self.name}/predict/{query_string}",
             headers=self._get_signed_request_headers(user_id),
             json=body,
         )
@@ -74,16 +102,32 @@ class Functions(BaseResource):
         variables: Optional[dict[str, Any]] = None,
         include: Optional[IncludeOptions] = None,
     ) -> Function:
+        """
+        Gets a function by name.
+
+        Args:
+            function_name: The name of the function to get.
+            user_id: The ID of the user.
+            prompt: The prompt to use for predicting the function's arguments.
+                Omit if you don't want to predict the arguments.
+            variables: The variables to use for auto-mapping the arguments.
+                Omit if you don't want to auto-map the arguments.
+            include: The fields to include with the function.
+
+        Returns:
+            The function.
+        """
         query_string = self._get_query_string(include, None, None, None)
 
-        body = {}
+        body: dict[str, Any] = {}
         if prompt:
             body["prompt"] = prompt
+
         if variables:
             body["_variables"] = variables
 
         response = await self.http_client.post(
-            f"functions/{function_name}/get/?{query_string}",
+            f"{self.name}/{function_name}/get/{query_string}",
             headers=self._get_signed_request_headers(user_id),
             json=body,
         )
@@ -196,7 +240,7 @@ class Functions(BaseResource):
         type: FunctionType | None,
         predict_arguments: bool = False,
     ) -> str:
-        query_params = {}
+        query_params: dict[str, Any] = {}
         if include:
             query_params["include"] = ",".join(include)
         if app:
