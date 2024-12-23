@@ -18,13 +18,13 @@ https://api.integry.io
 
 {% tabs %}
 {% tab title="Node.js" %}
-```
+```bash
 npm install --save integry
 ```
 {% endtab %}
 
 {% tab title="Python" %}
-```
+```bash
 pip install integry
 ```
 {% endtab %}
@@ -91,7 +91,7 @@ $hash = hash_hmac('sha256', $userId, $appSecret);
 {% tabs %}
 {% tab title="cURL" %}
 {% code lineNumbers="true" %}
-```javascript
+```bash
 curl -X POST "https://api.integry.io/functions/slack-post-message/call/"
 -H 'Content-Type: application/json'
 -H 'App-Key: 002d4f23-778a-11e7-bf2a-42010a8002c7'
@@ -165,7 +165,7 @@ List all apps available in Integry. If you need more, please reach out!
 {% tabs %}
 {% tab title="cURL" %}
 {% code lineNumbers="true" %}
-```javascript
+```bash
 curl -X POST "https://api.integry.io/apps/list/"
 -H 'Content-Type: application/json'
 -H 'App-Key: 002d4f23-778a-11e7-bf2a-42010a8002c7'
@@ -284,7 +284,7 @@ Get the details of an individual app by passing `app_name` as a path variable.
 {% tabs %}
 {% tab title="cURL" %}
 {% code lineNumbers="true" %}
-```javascript
+```bash
 curl -X POST "https://api.integry.io/apps/slack/get/"
 -H 'Content-Type: application/json'
 -H 'App-Key: 002d4f23-778a-11e7-bf2a-42010a8002c7'
@@ -369,7 +369,7 @@ List all functions available in Integry. If you need more, make a [passthrough r
 {% tabs %}
 {% tab title="cURL" %}
 {% code lineNumbers="true" %}
-```javascript
+```bash
 curl -X POST "https://api.integry.io/functions/list/?app=hubspot&type=ACTION"
 -H 'Content-Type: application/json'
 -H 'App-Key: 002d4f23-778a-11e7-bf2a-42010a8002c7'
@@ -942,7 +942,7 @@ Integry will not execute the function if the user has not connected an account, 
 {% tabs %}
 {% tab title="cURL" %}
 {% code lineNumbers="true" %}
-```javascript
+```bash
 curl -X POST "https://api.integry.io/functions/slack-post-message/call/"
 -H 'Content-Type: application/json'
 -H 'App-Key: 002d4f23-778a-11e7-bf2a-42010a8002c7'

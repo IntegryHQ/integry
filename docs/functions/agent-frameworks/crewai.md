@@ -6,7 +6,7 @@ description: Post a message on Slack using Integry and CrewAI
 
 ## 1. Install Integry
 
-```
+```bash
 pip install integry
 ```
 
