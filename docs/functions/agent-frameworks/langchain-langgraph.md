@@ -1,6 +1,8 @@
-# LangChain/LangGraph
+---
+description: Post a message on Slack using Integry and LangChain/LangGraph
+---
 
-## Post a message on Slack using Integry and LangChain/LangGraph
+# LangChain/LangGraph
 
 ## 1. Install Integry
 

@@ -1,6 +1,8 @@
-# AutoGen
+---
+description: Post a message on Slack using Integry and AutoGen
+---
 
-## Post a message on Slack using Integry and AutoGen
+# AutoGen
 
 ## 1. Install Integry
 

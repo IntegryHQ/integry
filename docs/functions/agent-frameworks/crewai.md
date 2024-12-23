@@ -1,6 +1,8 @@
-# CrewAI
+---
+description: Post a message on Slack using Integry and CrewAI
+---
 
-## Post a message on Slack using Integry and CrewAI
+# CrewAI
 
 ## 1. Install Integry
 
