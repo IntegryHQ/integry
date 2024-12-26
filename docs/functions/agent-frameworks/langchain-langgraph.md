@@ -46,14 +46,16 @@ agent = create_react_agent(
 )
 ```
 
-## 4. Connect your Slack account (skip if you already connected your Slack account)
+## 4. Connect a Slack account (skip if a Slack account is already connected)
 
-To connect your Slack account, execute the following snippet. This will print a URL which you can open in your browser to connect your Slack account.
+To allow the agent to send a message on Slack on your user's behalf, the user must connect their Slack account. To connect a Slack account against the provided user ID, execute the following snippet.
 
 ```python
 slack = await integry.apps.get("slack", user_id)
 print(slack.login_url)
 ```
+
+This will print a URL which can be opened in a web browser to connect Slack.
 
 ## 5. Execute Agent
 
