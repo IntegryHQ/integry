@@ -221,7 +221,7 @@ class Functions(BaseResource):
     def _raise_function_call_exception(self, response: Any):
         data = response.json()
         error_details = data.get("error_details")
-        error_message = "Failed to call the function"
+        error_message = "Failed to call the function."
         errors = []
 
         if isinstance(error_details, dict):
@@ -229,6 +229,8 @@ class Functions(BaseResource):
 
         elif isinstance(error_details, list):
             errors = error_details
+
+        error_message += f"\nDetails: {', '.join(errors)}"
 
         raise FunctionCallError(error_message, errors=errors)
 
