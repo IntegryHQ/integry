@@ -52,7 +52,16 @@ crewai_agent = Agent(
 )
 ```
 
-## 4. Execute Agent
+## 4. Connect your Slack account (skip if you already connected your Slack account)
+
+To connect your Slack account, execute the following snippet. This will print a URL which you can open in your browser to connect your Slack account.
+
+```python
+slack = await integry.apps.get("slack", user_id)
+print(slack.login_url)
+```
+
+## 5. Execute Agent
 
 ```python
 task = Task(
