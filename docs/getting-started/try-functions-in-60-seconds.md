@@ -12,7 +12,7 @@ Before you proceed, please [sign up](https://app.integry.io/accounts/register/v3
 
 {% stepper %}
 {% step %}
-Go to **Apps** and click the **Marketplace** button in the Integry app.
+Go to **Apps** and click the **Access as a User** button in the Integry app.
 
 You are accessing the marketplace as a user of your app. Later, once your users have connected apps (and setup integrations), you can impersonate them here if you need to debug and/or fix.
 {% endstep %}
