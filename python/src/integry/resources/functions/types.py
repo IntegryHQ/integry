@@ -150,7 +150,7 @@ class Function(BaseModel):
         Register a function with LlamaIndex agents.
 
         Args:
-        tool_from_defaults: Function to create a tool for the agent.
+        tool_from_defaults: This should be llamaIndex `FunctionTool.from_defaults` method.
         user_id: The user ID for authentication.
 
         Returns:
