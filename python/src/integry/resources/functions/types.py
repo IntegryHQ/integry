@@ -145,7 +145,7 @@ class Function(BaseModel):
 
         return result
 
-    def register_with_llamaindex_agents(self, tool_from_defaults: Any, user_id: str):
+    def register_with_llamaindex_agents(self, tool_from_defaults: Callable[..., None], user_id: str):
         """
         Register a function with LlamaIndex agents.
 
