@@ -273,11 +273,11 @@ Include as a query param to only list apps that the user has connected.
 
 Returns an `object[]` of `apps` that match the criteria, and an optional `_cursor` to paginate over the results.
 
-### Get an app
+### Get an app with the user's connected accounts
 
 <mark style="color:purple;">`POST`</mark> `/apps/:app_name/get`
 
-Get the details of an individual app by passing `app_name` as a path variable.
+Get the details of an individual app and user's connected accounts with the app by passing `app_name` as a path variable.
 
 #### Sample Call&#x20;
 
