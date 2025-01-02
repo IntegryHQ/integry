@@ -124,17 +124,12 @@ class Function(BaseModel):
         )
         return tool
 
-    def execute_slack_function(self, user_id: str, **kwargs):
+    def execute_function(self, user_id: str, **kwargs):
         """
-        Execute a Slack function dynamically.
-
         Args:
-            slack_function: The Slack function object with name, description, and parameters.
             user_id: The user ID for authentication.
-            **kwargs: Arguments to be validated and passed to the Slack function.
+            **kwargs: Arguments to be validated and passed to the function.
 
-        Returns:
-            Result of the Slack function execution.
         """
         
         if "kwargs" in kwargs:
@@ -145,14 +140,14 @@ class Function(BaseModel):
 
         validated_data = ArgumentSchema(**kwargs)
 
-        slack_function_callable = self._get_sync_callable(user_id=user_id)
-        result = slack_function_callable(**validated_data.model_dump())
+        function_callable = self._get_sync_callable(user_id=user_id)
+        result = function_callable(**validated_data.model_dump())
 
         return result
 
     def register_with_llamaindex_agents(self, tool_from_defaults: Any, user_id: str):
         """
-        Register a Slack function with LlamaIndex agents.
+        Register a function with LlamaIndex agents.
 
         Args:
         tool_from_defaults: Function to create a tool for the agent.
@@ -162,7 +157,7 @@ class Function(BaseModel):
             Registered tool for LlamaIndex agents.
         """
         return tool_from_defaults(
-            fn=lambda **kwargs: self.execute_slack_function(user_id, **kwargs),
+            fn=lambda **kwargs: self.execute_function(user_id, **kwargs),
             name=self.name,
             description=self.description,
         )
