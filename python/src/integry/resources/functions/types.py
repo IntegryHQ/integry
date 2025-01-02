@@ -129,23 +129,19 @@ class Function(BaseModel):
         Args:
             user_id: The user ID for authentication.
             **kwargs: Arguments to be validated and passed to the function.
-
         """
         
         if "kwargs" in kwargs:
-            kwargs = kwargs["kwargs"]
-
-        json_schema = self.parameters.model_dump()
-        ArgumentSchema = get_pydantic_model_from_json_schema(json_schema=json_schema)
-
-        validated_data = ArgumentSchema(**kwargs)
-
-        function_callable = self._get_sync_callable(user_id=user_id)
-        result = function_callable(**validated_data.model_dump())
-
+            flattened_payload = dict(kwargs['kwargs'])
+        
+        slack_function_callable = self._get_sync_callable(user_id=user_id)
+        result = slack_function_callable(**flattened_payload)
         return result
 
-    def register_with_llamaindex_agents(self, tool_from_defaults: Callable[..., None], user_id: str):
+    def get_llamaindex_tool[
+        T
+    ](
+        self, tool_from_defaults: Callable[..., T], user_id: str) -> T:
         """
         Register a function with LlamaIndex agents.
 
@@ -156,11 +152,12 @@ class Function(BaseModel):
         Returns:
             Registered tool for LlamaIndex agents.
         """
-        return tool_from_defaults(
+        tool = tool_from_defaults(
             fn=lambda **kwargs: self.execute_function(user_id, **kwargs),
             name=self.name,
             description=self.description,
         )
+        return tool
 
 
     def register_with_autogen_agents(
