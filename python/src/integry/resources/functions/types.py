@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import create_model, BaseModel, Field
 from typing import (
     Any,
     Awaitable,
@@ -131,34 +131,40 @@ class Function(BaseModel):
             **kwargs: Arguments to be validated and passed to the function.
         """
         
-        if "kwargs" in kwargs:
-            flattened_payload = dict(kwargs['kwargs'])
-        
         slack_function_callable = self._get_sync_callable(user_id=user_id)
-        result = slack_function_callable(**flattened_payload)
+        result = slack_function_callable(**kwargs)
         return result
 
     def get_llamaindex_tool[
         T
     ](
-        self, tool_from_defaults: Callable[..., T], user_id: str) -> T:
+        self, tool_from_defaults: Callable[..., T], ToolMetadata: Callable[..., T], user_id: str) -> T:
         """
         Register a function with LlamaIndex agents.
 
         Args:
         tool_from_defaults: This should be llamaIndex `FunctionTool.from_defaults` method.
+        ToolMetadata: llamaIndex function that generates metadata for the tool.
         user_id: The user ID for authentication.
 
         Returns:
             Registered tool for LlamaIndex agents.
         """
-        tool = tool_from_defaults(
-            fn=lambda **kwargs: self.execute_function(user_id, **kwargs),
+
+        function_schema = get_pydantic_model_from_json_schema(
+            json_schema=self.get_json_schema()['parameters'],
+        )
+
+        metadata = ToolMetadata(
             name=self.name,
             description=self.description,
+            fn_schema=function_schema,
         )
-        return tool
 
+        return tool_from_defaults(
+            fn=lambda **kwargs: self.execute_function(user_id, **kwargs),
+            tool_metadata=metadata,
+        )
 
     def register_with_autogen_agents(
         self,
