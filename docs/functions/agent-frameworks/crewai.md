@@ -6,29 +6,24 @@ description: >-
 
 # CrewAI
 
-## 1. Install Integry
+## 1. Install Required Libraries
 
-To work with Integry using python, you have to install using the latest version.
+First, you need to install the necessary packages:
 
-To check for the latest versions, you can visit the Integry Python package on the [Integry PyPI page](https://pypi.org/project/integry/#history) and install it using the following command:
+{% hint style="info" %}
+Integry requires Python version 3.12 or higher
+{% endhint %}
 
-```python
-pip install integry==<version number>
-```
-
-For example, to install version 0.0.7:
-
-```python
-pip install integry==0.0.7
-```
-
-## 2. Initialize Integry & LLM
-
-Install and Import the necessary Libraries
+* **Integry** is used to integrate structured tools and functions.
+* **CrewAI** integrate tools and automate workflows using large language models.
 
 ```python
-pip install crewai
+pip install integry crewai
 ```
+
+## 2. Initialize Integry & Agent
+
+Import the necessary Libraries
 
 ```python
 import os
@@ -37,27 +32,19 @@ from crewai import Agent, Task, Crew, LLM
 from crewai.tools.structured_tool import CrewStructuredTool
 ```
 
-`User-ID` is a unique string identifier for a user in your app. Function Calls and Integrations are associated to a user ID.
-
-{% hint style="info" %}
-If your app has workspaces/accounts and you want integrations to be shared across all users in a workspace/account, use the workspace/account ID as the user ID.
-{% endhint %}
-
-To get the user ID, visit the Team Management section in [settings](https://app.integry.io/wapp/settings/users/) and navigate to the **Team** section, where you'll find the **Name** and **Email** of the user. The **Email** serves as the **user ID** for making API calls.
-
-```
-user_id = "your user's ID"
-```
+`User-ID` is a unique string identifier for a user in your app or agent. Function Calls and Integrations are associated to a user ID. It will be the email address you used during the signup process on Integry.
 
 For example:
 
 ```python
-user_id = "nash@example.com"
+user_id = "joe@example.com"
 ```
 
 Below code snippet initializes the **Integry** class to interact with the Integry API using the **App-Key** and **App-Secret**.&#x20;
 
-You can view and copy your `App-Key` and `App-Secret` from [your workspace setting](https://app.integry.io/wapp/settings/embed/).
+You can view and copy your `App-Key` and `App-Secret` from the [Workspace Settings](https://app.integry.io/wapp/settings/embed/).
+
+<figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption><p>Workspace Setting</p></figcaption></figure>
 
 ```python
 integry = Integry(
@@ -79,7 +66,17 @@ llm = LLM(
 
 ## 3. Initialize Agent with an Integry Function as a Tool
 
-Perfect! Now that we've set everything up, we will proceed to send a message in Slack using the Integry **slack-post-message** function.
+Perfect! Before you can use the functions available in Integry, you need to add the app to Integry. Slack, however, is pre-added to Integry by default, so there’s no need to add it manually.&#x20;
+
+Now that we've set everything up, we will proceed to send a message in Slack using the **slack-post-message** function from [Integry](https://app.integry.io/platform/functions). You can copy the function ID from the dropdown.&#x20;
+
+For example
+
+In this case the function ID is <mark style="color:blue;">slack-post-message</mark>
+
+<figure><img src="../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+
+After getting the function ID,  we then registers it with the Crew AI agents to enable the assistant to call the function.
 
 ```python
 slack_post_message = await integry.functions.get("slack-post-message", user_id)
@@ -98,7 +95,7 @@ crewai_agent = Agent(
 )
 ```
 
-## 4. **Connect Your Slack Account (Required for First-Time Users)**
+## 4. **Connect Your Slack Account**
 
 To allow the agent to send a message on Slack on your user's behalf, the user must connect their Slack account. To connect a Slack account against the provided user ID, execute the following snippet.
 
@@ -111,9 +108,11 @@ This will print a URL which can be opened in a web browser to connect Slack.
 
 ## 5. Execute Agent
 
+This will execute the agent and send a **Hello from crewai to the team** message in the Slack random channel.
+
 ```python
 task = Task(
-    description="Say hello to my team on slack",
+    description="Say hello from crewai to my team on slack in #random channel.",
     agent=crewai_agent,
     expected_output="Result of the task",
 )

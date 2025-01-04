@@ -40,27 +40,19 @@ from langchain_core.tools import StructuredTool
 from langgraph.prebuilt import create_react_agent
 ```
 
-`User-ID` is a unique string identifier for a user in your app or agent. Function Calls and Integrations are associated to a user ID.
-
-{% hint style="info" %}
-If your app has workspaces/accounts and you want integrations to be shared across all users in a workspace/account, use the workspace/account ID as the user ID.
-{% endhint %}
-
-To get the user ID, visit the Team Management section in [settings](https://app.integry.io/wapp/settings/users/) and navigate to the **Team** section, where you'll find the **Name** and **Email** of the user. The **Email** serves as the **user ID** for making API calls.
-
-```python
-user_id = "your user's ID"
-```
+`User-ID` is a unique string identifier for a user in your app or agent. Function Calls and Integrations are associated to a user ID. It will be the email address you used during the signup process on Integry.
 
 For example:
 
 ```python
-user_id = "nash@example.com"
+user_id = "joe@example.com"
 ```
 
 Below code snippet initializes the **Integry** class to interact with the Integry API using the **App-Key** and **App-Secret**.&#x20;
 
-You can view and copy your `App-Key` and `App-Secret` from [your workspace setting](https://app.integry.io/wapp/settings/embed/).
+You can view and copy your `App-Key` and `App-Secret` from the [Workspace Settings](https://app.integry.io/wapp/settings/embed/).
+
+<figure><img src="../../.gitbook/assets/image (9).png" alt=""><figcaption><p>Workspace Setting</p></figcaption></figure>
 
 ```python
 integry = Integry(
@@ -80,9 +72,18 @@ llm = ChatOpenAI(
 
 ## 3. Register the Integry Function as a Tool
 
-Perfect! Now that we've set everything up, we will proceed to send a message in Slack using the Integry **slack-post-message** function.
+Perfect! Before you can use the functions available in Integry, you need to add the app to Integry. Slack, however, is pre-added to Integry by default, so there’s no need to add it manually. &#x20;
 
-* **Retrieve the Slack Post Message Function**: Get the **slack-post-message** function from [Integry](https://app.integry.io/platform/functions) (You can search the function name like slack-post-message).
+Now that we've set everything up, we will proceed to send a message in Slack using the Integry **slack-post-message** function. from [Integry](https://app.integry.io/platform/functions). You can copy the function ID from the dropdown.&#x20;
+
+For example
+
+In this case the function ID is <mark style="color:blue;">slack-post-message</mark>
+
+<figure><img src="../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+
+After getting the function ID,  we then registers it with the Langchain agents to enable the assistant to call the function.
+
 * **Create the LangChain Tool**: Convert the Integry function into a LangChain tool using `get_langchain_tool`.
 * **Set Up the Agent**: Create an agent with LangGraph that uses the tool and LLM to post messages to Slack.
 
@@ -99,7 +100,7 @@ agent = create_react_agent(
 
 <figure><img src="../../.gitbook/assets/download.png" alt=""><figcaption><p>Agent </p></figcaption></figure>
 
-## 4. **Connect Your Slack Account (Required for First-Time Users)**
+## 4. **Connect Your Slack Account**
 
 To allow the agent to send a message on Slack on your user's behalf, the user must connect their Slack account. To connect a Slack account against the provided user ID, execute the following snippet.
 

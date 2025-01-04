@@ -6,29 +6,24 @@ description: >-
 
 # AutoGen
 
-## 1. Install Integry
+## 1. Install Required Libraries
 
-To work with Integry using python, you have to install using the latest version.
+First, you need to install the necessary packages:
 
-To check for the latest versions, you can visit the Integry Python package on the [Integry PyPI page](https://pypi.org/project/integry/#history) and install it using the following command:
+{% hint style="info" %}
+Integry requires Python version 3.12 or higher
+{% endhint %}
+
+* **Integry** is used to integrate structured tools and functions.
+* **AutoGen** integrate tools and automate workflows using large language models.
 
 ```python
-pip install integry==<version number>
-```
-
-For example, to install version 0.0.7:
-
-```python
-pip install integry==0.0.7
+pip install integry autogen
 ```
 
 ## 2. Initialize Integry & Agent
 
-Install and Import the necessary Libraries
-
-```python
-pip install autogen
-```
+Import the necessary Libraries
 
 ```python
 import os
@@ -36,27 +31,19 @@ from integry import Integry
 from autogen import ConversableAgent, register_function
 ```
 
-`User-ID` is a unique string identifier for a user in your app. Function Calls and Integrations are associated to a user ID.
-
-{% hint style="info" %}
-If your app has workspaces/accounts and you want integrations to be shared across all users in a workspace/account, use the workspace/account ID as the user ID.
-{% endhint %}
-
-To get the user ID, visit the Team Management section in [settings](https://app.integry.io/wapp/settings/users/) and navigate to the **Team** section, where you'll find the **Name** and **Email** of the user. The **Email** serves as the **user ID** for making API calls.
-
-```
-user_id = "your user's ID"
-```
+`User-ID` is a unique string identifier for a user in your app or agent. Function Calls and Integrations are associated to a user ID. It will be the email address you used during the signup process on Integry.
 
 For example:
 
 ```python
-user_id = "nash@example.com"
+user_id = "joe@example.com"
 ```
 
 Below code snippet initializes the **Integry** class to interact with the Integry API using the **App-Key** and **App-Secret**.&#x20;
 
-You can view and copy your `App-Key` and `App-Secret` from [your workspace setting](https://app.integry.io/wapp/settings/embed/).
+You can view and copy your `App-Key` and `App-Secret` from the [Workspace Settings](https://app.integry.io/wapp/settings/embed/).
+
+<figure><img src="../../.gitbook/assets/image (6).png" alt=""><figcaption><p>Workspace Settings</p></figcaption></figure>
 
 ```python
 integry = Integry(
@@ -65,9 +52,11 @@ integry = Integry(
 )
 ```
 
-The code creates two AI agents: one is "Assistant" that helps perform tasks, and another is "User" that listens for a **TERMINATE** message to stop. The assistant uses an API key for GPT-4 You can get the API Key from the [OpenAI Platform](https://platform.openai.com/api-keys), while the user agent has a rule to stop when it receives the "TERMINATE" message.
+The code creates two AI agents: one is "Assistant" that helps perform tasks, and another is "User" that listens for a **`TERMINATE`** message to stop.&#x20;
 
-<pre class="language-python"><code class="lang-python"><strong>llm_config = {"config_list": [{"model": "gpt-4o", "api_key": os.environ.get("OPENAI_API_KEY")}]}
+The assistant uses an API key for GPT-4 You can get the API Key from the [OpenAI Platform](https://platform.openai.com/api-keys), while the user agent has a rule to stop when it receives the **`TERMINATE`** message.
+
+<pre class="language-python" data-overflow="wrap"><code class="lang-python"><strong>llm_config = {"config_list": [{"model": "gpt-4o", "api_key": os.environ.get("OPENAI_API_KEY")}]}
 </strong>
 assistant = ConversableAgent(
     name="Assistant",
@@ -88,7 +77,17 @@ user_proxy = ConversableAgent(
 
 ## 3. Register an Integry Function as a Tool
 
-The code retrieves a Slack post-message function from Integry, then registers it with the AI agents to enable the assistant to call the function.
+Before you can use the functions available in Integry, you need to add the app to Integry. Slack, however, is pre-added to Integry by default, so there’s no need to add it manually.&#x20;
+
+The code retrieves a Slack post-message function from [Integry](https://app.integry.io/platform/functions). You can copy the function ID from the dropdown.&#x20;
+
+For example
+
+In this case the function ID is <mark style="color:blue;">slack-post-message</mark>
+
+<figure><img src="../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+
+After getting the function ID,  we then registers it with the Autogen AI agents to enable the assistant to call the function.
 
 <pre class="language-python"><code class="lang-python">function = await integry.functions.get("slack-post-message", user_id)
 <strong>
@@ -100,7 +99,7 @@ The code retrieves a Slack post-message function from Integry, then registers it
 )
 </code></pre>
 
-## 4. **Connect Your Slack Account (Required for First-Time Users)**
+## 4. **Connect Your Slack Account**
 
 To allow the agent to send a message on Slack on your user's behalf, the user must connect their Slack account. To connect a Slack account against the provided user ID, execute the following snippet.
 
@@ -113,9 +112,59 @@ This will print a URL which can be opened in a web browser to connect Slack.
 
 ## 5. Execute Agent
 
+This will execute the agent and send a **Hello from autogen to the team** message in the Slack random channel<mark style="color:blue;">.</mark>
+
 ```python
 chat_result = await user_proxy.a_initiate_chat(
     assistant,
-    message="Say hello to my team on slack",
+    message="Say hello from autogen to my team on slack in #random channel",
 )
 ```
+
+This will send the message to the slack channel. Here is reference image&#x20;
+
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+The message has been sent successfully in slack #random channel. You can verify the successful message delivery by checking the highlighted content in the response below.
+
+<pre class="language-json"><code class="lang-json">User (to Assistant):
+
+Say hello from autogen to my team on slack in #random channel
+
+--------------------------------------------------------------------------------
+
+>>>>>>>> USING AUTO REPLY...
+
+>>>>>>>> USING AUTO REPLY...
+Assistant (to User):
+
+***** Suggested tool call (call_ClWxh8HVMTaR74K91HI3ixEa): slack-post-message *****
+Arguments: 
+{"input":{"channel":"#random","text":"Hello from autogen to the team!"}}
+***********************************************************************************
+
+--------------------------------------------------------------------------------
+
+>>>>>>>> EXECUTING ASYNC FUNCTION slack-post-message...
+User (to Assistant):
+
+***** Response from calling tool (call_ClWxh8HVMTaR74K91HI3ixEa) *****
+<strong><a data-footnote-ref href="#user-content-fn-1">{</a>"<a data-footnote-ref href="#user-content-fn-2">network_code":200,"output":{"</a>ok":true,"channel":"C086HKZMTSS","ts":"1735395154.257879","message":{"user":"U086GBQHLG0","type":"message","ts":"1735395154.257879","bot_id":"B086E311JTB","app_id":"A6FQL4KQC","text":"Hello from autogen to the team!","team":"T086682UW57","bot_profile":{"id":"B086E311JTB","app_id":"A6FQL4KQC","name":"Integry","icons":{"image_36":"https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-08-09/225182834294_8020ddc74d7822b48ea1_36.png","image_48":"https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-08-09/225182834294_8020ddc74d7822b48ea1_48.png","image_72":"https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-08-09/225182834294_8020ddc74d7822b48ea1_72.png"},"deleted":false,"updated":1734709233,"team_id":"T086682UW57"},"blocks":[{"type":"rich_text","block_id":"BjV","elements":[{"type":"rich_text_section","elements":[{"type":"text","text":"Hello from autogen to the team!"}]}]}]}}}
+</strong>**********************************************************************
+
+--------------------------------------------------------------------------------
+
+>>>>>>>> USING AUTO REPLY...
+
+>>>>>>>> USING AUTO REPLY...
+Assistant (to User):
+
+<strong>I've posted the message "Hello from autogen to the team!" to the #random channel on Slack. TERMINATE
+</strong>
+--------------------------------------------------------------------------------
+
+</code></pre>
+
+[^1]: This success response show's that message has been sent successfully in slack channel.&#x20;
+
+[^2]: This success response show's that message has been sent successfully in slack channel.&#x20;

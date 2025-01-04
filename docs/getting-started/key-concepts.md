@@ -1,6 +1,6 @@
 ---
-hidden: true
 icon: key
+hidden: true
 ---
 
 # Key Concepts
@@ -19,7 +19,7 @@ A **flow** moves data from one app to another. It is comprised of one or more bl
 
 A (trigger) **block** is comprised of one trigger and one or more subsequent steps. Each block must have a trigger that will run the block.
 
-<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Trigger <a href="#h_01hnbh26nyfh3rkp2jd3gwwcnp" id="h_01hnbh26nyfh3rkp2jd3gwwcnp"></a>
 
@@ -41,13 +41,13 @@ An action pushes data to an API endpoint by making an HTTP call.
 
 The **setup form** of a flow is what a user sees when they are setting up an integration of the flow. It can have one or more pages, and a page can have one or more fields.
 
-<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Marketplace <a href="#h_01hnbh34tm0bzhbpt0k9p0gnqd" id="h_01hnbh34tm0bzhbpt0k9p0gnqd"></a>
 
 The marketplace is what you [embed in your app](broken-reference) using the SDK so your users can setup integrations. You can control what flows to show by tagging them, and filtering on those tags. The widget emits a number of different [events](../apis-and-sdks/js-sdk-reference/events.md) that you can leverage to control the user journey.
 
-<figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Tag <a href="#h_01hnbk5zapq1tyf4ntsgmz8pss" id="h_01hnbk5zapq1tyf4ntsgmz8pss"></a>
 
@@ -73,7 +73,7 @@ Before they setup an integration of a flow with an app, users will have to conne
 
 An **integration** is an instance of a flow with a third-party app setup by your user using a [account](key-concepts.md#h_01hnbkcnwepqwy0cpan8nxb3gq) of that app. You can allow users to setup one or more integrations of a flow.&#x20;
 
-<figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Run <a href="#h_01hnbfrd7hb30hzw0nc853fcxd" id="h_01hnbfrd7hb30hzw0nc853fcxd"></a>
 

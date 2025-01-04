@@ -6,6 +6,6 @@ For example, this flow will trigger when a contact is created in Hubspot, look i
 
 For example, this flow will trigger when a contact is added to a list in Hubspot, or a contact is updated in a list in Hubspot. In the latter case, the contact ID in Acme will be looked up, and then the contact will be updated.
 
-<figure><img src="../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
 
 All triggers in a flow share a common setup form (so your users don't have to answer the same questions twice).
