@@ -1,4 +1,4 @@
-from pydantic import create_model, BaseModel, Field
+from pydantic import BaseModel, Field
 from typing import (
     Any,
     Awaitable,
@@ -124,45 +124,42 @@ class Function(BaseModel):
         )
         return tool
 
-    def execute_function(self, user_id: str, **kwargs):
-        """
-        Args:
-            user_id: The user ID for authentication.
-            **kwargs: Arguments to be validated and passed to the function.
-        """
-        
-        slack_function_callable = self._get_sync_callable(user_id=user_id)
-        result = slack_function_callable(**kwargs)
-        return result
-
     def get_llamaindex_tool[
         T
     ](
-        self, tool_from_defaults: Callable[..., T], ToolMetadata: Callable[..., T], user_id: str) -> T:
+        self, tool_from_defaults: Callable[..., T], tools_metadata: Callable[..., T], user_id: str) -> T:
+        
         """
-        Register a function with LlamaIndex agents.
+        Returns a llamaIndex tool for the function..
 
         Args:
-        tool_from_defaults: This should be llamaIndex `FunctionTool.from_defaults` method.
-        ToolMetadata: llamaIndex function that generates metadata for the tool.
-        user_id: The user ID for authentication.
+            tool_from_defaults: This should be llamaIndex `FunctionTool.from_defaults` method.
+            tools_metadata: LlamaIndex function that generates metadata for the tool.
+            user_id: The user ID for authentication.
 
         Returns:
-            Registered tool for LlamaIndex agents.
+            llamaindex tool
         """
+
+        async def execute_function(**kwargs: Dict[str, Any]) -> FunctionCallOutput:
+            callable_function = self._get_callable(user_id=user_id)
+            result = await callable_function(**kwargs)
+            return result
 
         function_schema = get_pydantic_model_from_json_schema(
             json_schema=self.get_json_schema()['parameters'],
         )
 
-        metadata = ToolMetadata(
+        metadata = tools_metadata(
             name=self.name,
             description=self.description,
             fn_schema=function_schema,
         )
 
+        async_fn: Callable[[Dict[str, Any]], Awaitable[Any]] = lambda **kwargs: execute_function(**kwargs)
+
         return tool_from_defaults(
-            fn=lambda **kwargs: self.execute_function(user_id, **kwargs),
+            async_fn = async_fn,
             tool_metadata=metadata,
         )
 
