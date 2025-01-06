@@ -127,8 +127,11 @@ class Function(BaseModel):
     def get_llamaindex_tool[
         T
     ](
-        self, tool_from_defaults: Callable[..., T], tools_metadata: Callable[..., T], user_id: str) -> T:
-        
+        self,
+        tool_from_defaults: Callable[..., T],
+        tools_metadata: Callable[..., T],
+        user_id: str,
+    ) -> T:
         """
         Returns a llamaIndex tool for the function..
 
@@ -147,7 +150,7 @@ class Function(BaseModel):
             return result
 
         function_schema = get_pydantic_model_from_json_schema(
-            json_schema=self.get_json_schema()['parameters'],
+            json_schema=self.get_json_schema()["parameters"],
         )
 
         metadata = tools_metadata(
@@ -156,10 +159,12 @@ class Function(BaseModel):
             fn_schema=function_schema,
         )
 
-        async_fn: Callable[[Dict[str, Any]], Awaitable[Any]] = lambda **kwargs: execute_function(**kwargs)
+        async_fn: Callable[[Dict[str, Any]], Awaitable[Any]] = (
+            lambda **kwargs: execute_function(**kwargs)
+        )
 
         return tool_from_defaults(
-            async_fn = async_fn,
+            async_fn=async_fn,
             tool_metadata=metadata,
         )
 
