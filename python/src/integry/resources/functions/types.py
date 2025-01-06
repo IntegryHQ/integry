@@ -145,11 +145,6 @@ class Function(BaseModel):
             The LlamaIndex tool.
         """
 
-        async def execute_function(**kwargs: Dict[str, Any]) -> FunctionCallOutput:
-            callable_function = self._get_callable(user_id, variables)
-            result = await callable_function(**kwargs)
-            return result
-
         function_schema = get_pydantic_model_from_json_schema(
             json_schema=self.get_json_schema()["parameters"],
         )
@@ -160,12 +155,8 @@ class Function(BaseModel):
             fn_schema=function_schema,
         )
 
-        async_fn: Callable[[Dict[str, Any]], Awaitable[Any]] = (
-            lambda **kwargs: execute_function(**kwargs)
-        )
-
         return tool_from_defaults(
-            async_fn=async_fn,
+            async_fn=self._get_callable(user_id=user_id),
             tool_metadata=metadata,
         )
 
