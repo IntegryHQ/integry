@@ -26,7 +26,7 @@ Or include it via a script tag:
 
 The Integry JS SDK requires an `App-Key` and a hash of `App-Secret` and `User-ID` to authenticate calls.&#x20;
 
-You can view and copy your `App-Key` and `App-Secret` from [the Integry app](https://app.integry.io/wapp/settings/embed/).
+You can view and copy your `App-Key` and `App-Secret` from [the Integry app](https://app.integry.io/platform/workspace/security/).
 
 `User-ID` is a unique string identifier for a user in your app. Function Calls and Integrations are associated to a user ID.
 
@@ -431,7 +431,7 @@ Use it as `params` to [invokeFunction()](./#invokefunction-functionname-params-c
 
 Invokes the specified function of an app with the provided parameters. Integry will automatically include your user's authentication credentials when making the onwards API call.
 
-Integry will execute the function if the user has already connected their account for the function app, and all required parameters (if any) are provided in `params`. These function calls will show in the Function Calls log in [the Integry app](https://app.integry.io/wapp/function-calls).
+Integry will execute the function if the user has already connected their account for the function app, and all required parameters (if any) are provided in `params`. These function calls will show in the Function Calls log in [the Integry app](https://app.integry.io/platform/functions/calls-log).
 
 Integry will not execute the function if the user has not connected an account, or the parameters passed are invalid. These function calls will not show in the Function Calls log.
 

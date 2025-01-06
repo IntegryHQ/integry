@@ -41,7 +41,7 @@ user_id = "joe@example.com"
 
 Below code snippet initializes the **Integry** class to interact with the Integry API using the **App-Key** and **App-Secret**.&#x20;
 
-You can view and copy your `App-Key` and `App-Secret` from the [Workspace Settings](https://app.integry.io/wapp/settings/embed/).
+You can view and copy your `App-Key` and `App-Secret` from the [Workspace Settings](https://app.integry.io/platform/workspace/security/).
 
 <figure><img src="../../.gitbook/assets/image (6).png" alt=""><figcaption><p>Workspace Settings</p></figcaption></figure>
 

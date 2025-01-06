@@ -34,7 +34,7 @@ pip install integry
 
 The Integry API requires an `App-Key` , `User-ID` and a hash of `App-Secret` and `User-ID` in the request headers to authenticate requests.&#x20;
 
-You can view and copy your `App-Key` and `App-Secret` from [the Integry app](https://app.integry.io/wapp/settings/embed/).
+You can view and copy your `App-Key` and `App-Secret` from [the Integry app](https://app.integry.io/platform/workspace/security/).
 
 `User-ID` is a unique string identifier for a user in your app. Function Calls and Integrations are associated to a user ID.
 
