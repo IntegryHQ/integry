@@ -156,6 +156,7 @@ chat_result = await user_proxy.a_initiate_chat(
 import os
 from integry import Integry
 from llama_index.core.tools import FunctionTool, ToolMetadata
+from llama_index.llms.openai import OpenAI
 
 user_id = "your user's ID"
 
