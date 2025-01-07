@@ -150,7 +150,37 @@ chat_result = await user_proxy.a_initiate_chat(
 )
 ```
 
-## 3. Prediction
+### 4. LlamaIndex
+
+```python
+import os
+from integry import Integry
+from llama_index.core.tools import FunctionTool, ToolMetadata
+
+user_id = "your user's ID"
+
+# Initialize the client
+integry = Integry(
+    app_key=os.environ.get("INTEGRY_APP_KEY"),
+    app_secret=os.environ.get("INTEGRY_APP_SECRET"),
+)
+
+slack_post_message = await integry.functions.get("slack-post-message", user_id)
+
+llm = OpenAI(model="gpt-4o", temperature=0, api_key=os.environ.get("OPENAI_API_KEY"))
+
+tools = [
+    slack_post_message.get_llamaindex_tool(function, FunctionTool.from_defaults, ToolMetadata, user_id)
+]
+
+agent = ReActAgent.from_tools(tools=tools, llm=llm, verbose=True)
+
+message = "Say hello to my team on slack."
+
+result = agent.chat(message) 
+```
+
+## 5. Prediction
 
 ```python
 import os
