@@ -157,6 +157,7 @@ import os
 from integry import Integry
 from llama_index.core.tools import FunctionTool, ToolMetadata
 from llama_index.llms.openai import OpenAI
+from llama_index.core.agent import ReActAgent
 
 user_id = "your user's ID"
 
