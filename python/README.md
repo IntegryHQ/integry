@@ -180,7 +180,7 @@ agent = ReActAgent.from_tools(tools=tools, llm=llm, verbose=True)
 
 task = "Say hello to my team on slack."
 
-result = await agent.achat(task) 
+result = await agent.achat(task)
 ```
 
 # Prediction
