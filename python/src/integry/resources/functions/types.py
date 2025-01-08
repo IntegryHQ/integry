@@ -129,16 +129,16 @@ class Function(BaseModel):
     ](
         self,
         tool_from_defaults: Callable[..., T],
-        tools_metadata: Callable[..., T],
+        tools_metadata: Callable[..., Any],
         user_id: str,
         variables: Optional[dict[str, Any]] = None,
     ) -> T:
         """
-        Returns a llamaIndex tool for the function.
+        Returns a LlamaIndex tool for the function.
 
         Args:
-            tool_from_defaults: This should be llamaIndex `FunctionTool.from_defaults` method.
-            tools_metadata: LlamaIndex's function that generates metadata for the tool.
+            tool_from_defaults: This should be LlamaIndex's `FunctionTool.from_defaults` method.
+            tools_metadata: This should be LlamaIndex's `ToolMetadata` class.
             user_id: The user ID for authentication.
 
         Returns:
@@ -156,7 +156,7 @@ class Function(BaseModel):
         )
 
         return tool_from_defaults(
-            async_fn=self._get_callable(user_id=user_id),
+            async_fn=self._get_callable(user_id=user_id, variables=variables),
             tool_metadata=metadata,
         )
 

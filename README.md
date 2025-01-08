@@ -172,14 +172,14 @@ slack_post_message = await integry.functions.get("slack-post-message", user_id)
 llm = OpenAI(model="gpt-4o", temperature=0, api_key=os.environ.get("OPENAI_API_KEY"))
 
 tools = [
-    slack_post_message.get_llamaindex_tool(function, FunctionTool.from_defaults, ToolMetadata, user_id)
+    slack_post_message.get_llamaindex_tool(FunctionTool.from_defaults, ToolMetadata, user_id)
 ]
 
 agent = ReActAgent.from_tools(tools=tools, llm=llm, verbose=True)
 
-message = "Say hello to my team on slack."
+task = "Say hello to my team on slack."
 
-result = agent.chat(message) 
+result = await agent.achat(task) 
 ```
 
 ## 5. Prediction
