@@ -124,6 +124,42 @@ class Function(BaseModel):
         )
         return tool
 
+    def get_llamaindex_tool[
+        T
+    ](
+        self,
+        tool_from_defaults: Callable[..., T],
+        tools_metadata: Callable[..., Any],
+        user_id: str,
+        variables: Optional[dict[str, Any]] = None,
+    ) -> T:
+        """
+        Returns a LlamaIndex tool for the function.
+
+        Args:
+            tool_from_defaults: This should be LlamaIndex's `FunctionTool.from_defaults` method.
+            tools_metadata: This should be LlamaIndex's `ToolMetadata` class.
+            user_id: The user ID for authentication.
+
+        Returns:
+            The LlamaIndex tool.
+        """
+
+        function_schema = get_pydantic_model_from_json_schema(
+            json_schema=self.get_json_schema()["parameters"],
+        )
+
+        metadata = tools_metadata(
+            name=self.name,
+            description=self.description,
+            fn_schema=function_schema,
+        )
+
+        return tool_from_defaults(
+            async_fn=self._get_callable(user_id=user_id, variables=variables),
+            tool_metadata=metadata,
+        )
+
     def register_with_autogen_agents(
         self,
         register_function: Callable[..., None],
