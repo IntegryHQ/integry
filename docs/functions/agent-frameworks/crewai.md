@@ -1,7 +1,5 @@
 ---
-description: >-
-  This guide will walk you through the process of setting up and using Integry
-  and CrewAI to post a message on Slack.
+description: This guide explains how to use Integry with CrewAI to post a message on Slack.
 ---
 
 # CrewAI
@@ -40,7 +38,7 @@ For example:
 user_id = "joe@example.com"
 ```
 
-Below code snippet initializes the **Integry** class to interact with the Integry API using the **App-Key** and **App-Secret**.&#x20;
+Below code snippet initializes the **Integry** class to interact with the Integry API using the **App-Key** and **App-Secret**.
 
 You can view and copy your `App-Key` and `App-Secret` from the [Workspace Settings](https://app.integry.io/platform/workspace/security/).
 
@@ -66,9 +64,9 @@ llm = LLM(
 
 ## 3. Initialize Agent with an Integry Function as a Tool
 
-Perfect! Before you can use the functions available in Integry, you need to add the app to Integry. Slack, however, is pre-added to Integry by default, so there’s no need to add it manually.&#x20;
+Perfect! Before you can use the functions available in Integry, you need to add the app to Integry. Slack, however, is pre-added to Integry by default, so there’s no need to add it manually.
 
-Now that we've set everything up, we will proceed to send a message in Slack using the **slack-post-message** function from [Integry](https://app.integry.io/platform/functions). You can copy the function ID from the dropdown.&#x20;
+Now that we've set everything up, we will proceed to send a message in Slack using the **slack-post-message** function from [Integry](https://app.integry.io/platform/functions). You can copy the function ID from the dropdown.
 
 For example
 
@@ -76,7 +74,7 @@ In this case the function ID is <mark style="color:blue;">slack-post-message</ma
 
 <figure><img src="../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
 
-After getting the function ID,  we then registers it with the Crew AI agents to enable the assistant to call the function.
+After getting the function ID, we then registers it with the Crew AI agents to enable the assistant to call the function.
 
 ```python
 slack_post_message = await integry.functions.get("slack-post-message", user_id)

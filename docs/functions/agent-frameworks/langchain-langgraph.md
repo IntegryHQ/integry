@@ -1,14 +1,12 @@
 ---
 description: >-
-  In this guide, we will use a LangChain/LangGraph agent to post a message on
-  Slack using an Integry Function.
+  This guide explains how to use Integry with LangChain/LangGraph to post a
+  message on Slack.
 ---
 
 # LangChain/LangGraph
 
 We can utilize LangChain agents with `ChatAnthropicExperimental`, `ChatCohere`, `ChatFireworks`, `ChatMistralAI`, and `ChatOpenAI`. However, at present, creating agents using Langchain with `ChatGoogleGenerativeAI (Gemini)` is not supported.
-
-
 
 ## 1. Install Required Libraries
 
@@ -48,7 +46,7 @@ For example:
 user_id = "joe@example.com"
 ```
 
-Below code snippet initializes the **Integry** class to interact with the Integry API using the **App-Key** and **App-Secret**.&#x20;
+Below code snippet initializes the **Integry** class to interact with the Integry API using the **App-Key** and **App-Secret**.
 
 You can view and copy your `App-Key` and `App-Secret` from the [Workspace Settings](https://app.integry.io/platform/workspace/security/).
 
@@ -72,9 +70,9 @@ llm = ChatOpenAI(
 
 ## 3. Register the Integry Function as a Tool
 
-Perfect! Before you can use the functions available in Integry, you need to add the app to Integry. Slack, however, is pre-added to Integry by default, so there’s no need to add it manually. &#x20;
+Perfect! Before you can use the functions available in Integry, you need to add the app to Integry. Slack, however, is pre-added to Integry by default, so there’s no need to add it manually.
 
-Now that we've set everything up, we will proceed to send a message in Slack using the Integry **slack-post-message** function. from [Integry](https://app.integry.io/platform/functions). You can copy the function ID from the dropdown.&#x20;
+Now that we've set everything up, we will proceed to send a message in Slack using the Integry **slack-post-message** function. from [Integry](https://app.integry.io/platform/functions). You can copy the function ID from the dropdown.
 
 For example
 
@@ -82,7 +80,7 @@ In this case the function ID is <mark style="color:blue;">slack-post-message</ma
 
 <figure><img src="../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
 
-After getting the function ID,  we then registers it with the Langchain agents to enable the assistant to call the function.
+After getting the function ID, we then registers it with the Langchain agents to enable the assistant to call the function.
 
 * **Create the LangChain Tool**: Convert the Integry function into a LangChain tool using `get_langchain_tool`.
 * **Set Up the Agent**: Create an agent with LangGraph that uses the tool and LLM to post messages to Slack.
@@ -98,7 +96,7 @@ agent = create_react_agent(
 )
 ```
 
-<figure><img src="../../.gitbook/assets/download.png" alt=""><figcaption><p>Agent </p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/download.png" alt=""><figcaption><p>Agent</p></figcaption></figure>
 
 ## 4. **Connect Your Slack Account**
 
@@ -113,7 +111,7 @@ This will print a URL which can be opened in a web browser to connect Slack.
 
 ## 5. Execute Agent
 
-This will execute the agent and send a **Hello** message to the Slack channel, if you want to be more specific to channel you can have a content like <mark style="color:blue;">Say hello to my team on Slack in the</mark> <mark style="color:blue;"></mark><mark style="color:blue;">**#random**</mark> <mark style="color:blue;"></mark><mark style="color:blue;">channel.</mark>
+This will execute the agent and send a **Hello** message to the Slack channel, if you want to be more specific to channel you can have a content like <mark style="color:blue;">Say hello to my team on Slack in the</mark> <mark style="color:blue;">**#random**</mark> <mark style="color:blue;">channel.</mark>
 
 ```python
 await agent.ainvoke({
@@ -124,11 +122,11 @@ await agent.ainvoke({
 })
 ```
 
-This will send the message to the slack channel. Here is reference image&#x20;
+This will send the message to the slack channel. Here is reference image
 
 <figure><img src="../../.gitbook/assets/image (88).png" alt=""><figcaption></figcaption></figure>
 
-You can verify the successful message delivery by checking the highlighted content in the response, which indicates that the message was successfully sent.&#x20;
+You can verify the successful message delivery by checking the highlighted content in the response, which indicates that the message was successfully sent.
 
 **Sample Response**
 
@@ -237,4 +235,4 @@ You can verify the successful message delivery by checking the highlighted conte
 
 </code></pre>
 
-[^1]: This success response show's that message has been sent successfully in slack channel.&#x20;
+[^1]: This success response show's that message has been sent successfully in slack channel.

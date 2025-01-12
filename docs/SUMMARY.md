@@ -113,6 +113,7 @@
   * [LangChain/LangGraph](functions/agent-frameworks/langchain-langgraph.md)
   * [CrewAI](functions/agent-frameworks/crewai.md)
   * [AutoGen](functions/agent-frameworks/autogen.md)
+  * [LlamaIndex](functions/agent-frameworks/llamaindex.md)
 
 ## Flows
 

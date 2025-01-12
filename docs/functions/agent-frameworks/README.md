@@ -11,3 +11,4 @@ Use Integry to allow your agents to access hundreds of apps.
 1. [LangChain/LangGraph](langchain-langgraph.md)
 2. [CrewAI](crewai.md)
 3. [AutoGen](autogen.md)
+4. [LlamaIndex](llamaindex.md)

@@ -1,7 +1,7 @@
 ---
 description: >-
-  This guide will walk you through the process of setting up and using Integry
-  and AutoGen to post a message on Slack.
+  This guide explains how to use Integry with AutoGen to post a message on
+  Slack.
 ---
 
 # AutoGen
@@ -39,7 +39,7 @@ For example:
 user_id = "joe@example.com"
 ```
 
-Below code snippet initializes the **Integry** class to interact with the Integry API using the **App-Key** and **App-Secret**.&#x20;
+Below code snippet initializes the **Integry** class to interact with the Integry API using the **App-Key** and **App-Secret**.
 
 You can view and copy your `App-Key` and `App-Secret` from the [Workspace Settings](https://app.integry.io/platform/workspace/security/).
 
@@ -52,7 +52,7 @@ integry = Integry(
 )
 ```
 
-The code creates two AI agents: one is "Assistant" that helps perform tasks, and another is "User" that listens for a **`TERMINATE`** message to stop.&#x20;
+The code creates two AI agents: one is "Assistant" that helps perform tasks, and another is "User" that listens for a **`TERMINATE`** message to stop.
 
 The assistant uses an API key for GPT-4 You can get the API Key from the [OpenAI Platform](https://platform.openai.com/api-keys), while the user agent has a rule to stop when it receives the **`TERMINATE`** message.
 
@@ -77,9 +77,9 @@ user_proxy = ConversableAgent(
 
 ## 3. Register an Integry Function as a Tool
 
-Before you can use the functions available in Integry, you need to add the app to Integry. Slack, however, is pre-added to Integry by default, so there’s no need to add it manually.&#x20;
+Before you can use the functions available in Integry, you need to add the app to Integry. Slack, however, is pre-added to Integry by default, so there’s no need to add it manually.
 
-The code retrieves a Slack post-message function from [Integry](https://app.integry.io/platform/functions). You can copy the function ID from the dropdown.&#x20;
+The code retrieves a Slack post-message function from [Integry](https://app.integry.io/platform/functions). You can copy the function ID from the dropdown.
 
 For example
 
@@ -87,17 +87,18 @@ In this case the function ID is <mark style="color:blue;">slack-post-message</ma
 
 <figure><img src="../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
 
-After getting the function ID,  we then registers it with the Autogen AI agents to enable the assistant to call the function.
+After getting the function ID, we then registers it with the Autogen AI agents to enable the assistant to call the function.
 
-<pre class="language-python"><code class="lang-python">function = await integry.functions.get("slack-post-message", user_id)
-<strong>
-</strong>function.register_with_autogen_agents(
+```python
+function = await integry.functions.get("slack-post-message", user_id)
+
+function.register_with_autogen_agents(
     register_function,
     caller=assistant,
     executor=user_proxy,
     user_id=user_id,
 )
-</code></pre>
+```
 
 ## 4. **Connect Your Slack Account**
 
@@ -121,7 +122,7 @@ chat_result = await user_proxy.a_initiate_chat(
 )
 ```
 
-This will send the message to the slack channel. Here is reference image&#x20;
+This will send the message to the slack channel. Here is reference image
 
 <figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
@@ -165,6 +166,6 @@ Assistant (to User):
 
 </code></pre>
 
-[^1]: This success response show's that message has been sent successfully in slack channel.&#x20;
+[^1]: This success response show's that message has been sent successfully in slack channel.
 
-[^2]: This success response show's that message has been sent successfully in slack channel.&#x20;
+[^2]: This success response show's that message has been sent successfully in slack channel.
