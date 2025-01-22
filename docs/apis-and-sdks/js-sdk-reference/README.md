@@ -24,7 +24,7 @@ Or include it via a script tag:
 
 ### Authentication
 
-The Integry JS SDK requires an `App-Key` and a hash of `App-Secret` and `User-ID` to authenticate calls.&#x20;
+The Integry JS SDK requires an `App-Key` and a hash of `App-Secret` and `User-ID` to authenticate calls.
 
 You can view and copy your `App-Key` and `App-Secret` from [the Integry app](https://app.integry.io/platform/workspace/security/).
 
@@ -172,7 +172,7 @@ integry.showApps(
 
 #### Method parameters
 
-<table><thead><tr><th width="162">Name</th><th width="92">Type</th><th width="320">Description</th><th>Required</th></tr></thead><tbody><tr><td><code>renderMode</code></td><td>string</td><td>Specifies the mode in which the marketplace will be rendered. Allowed values: <code>IntegryJS.RenderModes.MODAL</code>, <code>IntegryJS.RenderModes.INLINE</code>. Defaults to <code>MODAL</code> if not specified.</td><td>false</td></tr><tr><td><code>containerId</code></td><td>string</td><td>The ID of the HTML container in which the marketplace content will be rendered. </td><td>true if <code>renderMode=IntegryJS.RenderModes.INLINE</code></td></tr><tr><td><code>layout</code></td><td>string</td><td>Specifies the layout. Allowed values: <code>IntegryJS.Layouts.WIDE</code>, <code>IntegryJS.Layouts.NARROW</code>. Defaults to <code>WIDE</code> if not specified.</td><td>false</td></tr></tbody></table>
+<table><thead><tr><th width="162">Name</th><th width="92">Type</th><th width="320">Description</th><th>Required</th></tr></thead><tbody><tr><td><code>renderMode</code></td><td>string</td><td>Specifies the mode in which the marketplace will be rendered. Allowed values: <code>IntegryJS.RenderModes.MODAL</code>, <code>IntegryJS.RenderModes.INLINE</code>. Defaults to <code>MODAL</code> if not specified.</td><td>false</td></tr><tr><td><code>containerId</code></td><td>string</td><td>The ID of the HTML container in which the marketplace content will be rendered.</td><td>true if <code>renderMode=IntegryJS.RenderModes.INLINE</code></td></tr><tr><td><code>layout</code></td><td>string</td><td>Specifies the layout. Allowed values: <code>IntegryJS.Layouts.WIDE</code>, <code>IntegryJS.Layouts.NARROW</code>. Defaults to <code>WIDE</code> if not specified.</td><td>false</td></tr></tbody></table>
 
 #### Emits events
 
@@ -187,6 +187,7 @@ Fired when the user successfully connects an app. It includes the app details al
     "title": "Pipedrive",
     "icon_url": "https://storage.googleapis.com/app-services-prod--bucket/public/c07f082e-33d2-499f-b67a-d98722ab367b.png",
     "docs_url": "",
+    "connected_account_id": "1234",
     "connected_accounts": [
         {
             "id": 247714,
@@ -208,6 +209,7 @@ Fired when the user disconnects an app. It includes the app details along with a
     "title": "Pipedrive",
     "icon_url": "https://storage.googleapis.com/app-services-prod--bucket/public/c07f082e-33d2-499f-b67a-d98722ab367b.png",
     "docs_url": "",
+    "connected_account_id": "1234",
     "connected_accounts": []
 }
 ```
@@ -234,7 +236,7 @@ integry.showApp(
 
 #### Method parameters
 
-<table><thead><tr><th width="162">Name</th><th width="92">Type</th><th width="320">Description</th><th>Required</th></tr></thead><tbody><tr><td><code>appName</code></td><td>string</td><td>Name of the app to show. Eg. Hubspot</td><td>true</td></tr><tr><td><code>renderMode</code></td><td>string</td><td>Specifies the mode in which the marketplace will be rendered. Allowed values: <code>IntegryJS.RenderModes.MODAL</code>, <code>IntegryJS.RenderModes.INLINE</code>. Defaults to <code>MODAL</code> if not specified.</td><td>false</td></tr><tr><td><code>containerId</code></td><td>string</td><td>The ID of the HTML container in which the marketplace content will be rendered. </td><td>true if <code>renderMode=IntegryJS.RenderModes.INLINE</code></td></tr><tr><td><code>layout</code></td><td>string</td><td>Specifies the layout. Allowed values: <code>IntegryJS.Layouts.WIDE</code>, <code>IntegryJS.Layouts.NARROW</code>. Defaults to <code>WIDE</code> if not specified.</td><td>false</td></tr></tbody></table>
+<table><thead><tr><th width="162">Name</th><th width="92">Type</th><th width="320">Description</th><th>Required</th></tr></thead><tbody><tr><td><code>appName</code></td><td>string</td><td>Name of the app to show. Eg. Hubspot</td><td>true</td></tr><tr><td><code>renderMode</code></td><td>string</td><td>Specifies the mode in which the marketplace will be rendered. Allowed values: <code>IntegryJS.RenderModes.MODAL</code>, <code>IntegryJS.RenderModes.INLINE</code>. Defaults to <code>MODAL</code> if not specified.</td><td>false</td></tr><tr><td><code>containerId</code></td><td>string</td><td>The ID of the HTML container in which the marketplace content will be rendered.</td><td>true if <code>renderMode=IntegryJS.RenderModes.INLINE</code></td></tr><tr><td><code>layout</code></td><td>string</td><td>Specifies the layout. Allowed values: <code>IntegryJS.Layouts.WIDE</code>, <code>IntegryJS.Layouts.NARROW</code>. Defaults to <code>WIDE</code> if not specified.</td><td>false</td></tr></tbody></table>
 
 #### Emits events
 
@@ -249,6 +251,7 @@ Fired when the user successfully connects an app. It includes the app details al
     "title": "Pipedrive",
     "icon_url": "https://storage.googleapis.com/app-services-prod--bucket/public/c07f082e-33d2-499f-b67a-d98722ab367b.png",
     "docs_url": "",
+    "connected_account_id": "1234",
     "connected_accounts": [
         {
             "id": 247714,
@@ -270,6 +273,7 @@ Fired when the user disconnects an app. It includes the app details along with a
     "title": "Pipedrive",
     "icon_url": "https://storage.googleapis.com/app-services-prod--bucket/public/c07f082e-33d2-499f-b67a-d98722ab367b.png",
     "docs_url": "",
+    "connected_account_id": "1234",
     "connected_accounts": []
 }
 ```
@@ -721,7 +725,7 @@ Sample responses for `pipedrive-add-a-person` and `pipedrive-get-all-persons`:
 {% endtabs %}
 
 {% hint style="info" %}
-In rare cases where Integry is unable to determine if there are more pages, it will respond with a `next_page` cursor. Your subsequent call will return an empty `output[]`  and `next_page` cursor since there are no more pages.
+In rare cases where Integry is unable to determine if there are more pages, it will respond with a `next_page` cursor. Your subsequent call will return an empty `output[]` and `next_page` cursor since there are no more pages.
 {% endhint %}
 
 ### Get a function
