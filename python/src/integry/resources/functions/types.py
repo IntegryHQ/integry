@@ -124,16 +124,14 @@ class Function(BaseModel):
         )
         return tool
 
-
     def get_haystack_tool[
         T
     ](
         self,
-        haystack_tool: Callable[..., T], 
+        haystack_tool: Callable[..., T],
         user_id: str,
         variables: Optional[dict[str, Any]] = None,
     ) -> T:
-
         """
         Returns a Haystack tool for the function.
 
@@ -148,12 +146,71 @@ class Function(BaseModel):
         schema = self.get_json_schema()
 
         return haystack_tool(
-            name=schema['name'],
-            description=schema['description'],
+            name=schema["name"],
+            description=schema["description"],
             function=self._get_sync_callable(user_id=user_id, variables=variables),
-            parameters=schema["parameters"]
+            parameters=schema["parameters"],
         )
 
+    def get_smolagent_tool[
+        T
+    ](
+        self,
+        newTool: Callable[..., T],
+        user_id: str,
+        variables: Optional[dict[str, Any]] = None,
+    ) -> T:
+        def generate_docstring_from_schema(schema: dict[str, Any]) -> str:
+            """
+            Generates a dynamic docstring based on a given JSON schema.
+
+            Parameters:
+            - schema (dict): JSON schema containing parameter definitions.
+
+            Returns:
+            - str: Formatted docstring with parameter details.
+            """
+            description = schema.get("description", "No description provided.")
+
+            docstring = f"{description}\n\n"
+            docstring += "Args:\n"
+            docstring += f"    kwargs: A dictionary containing the following keys:\n"
+
+            parameters = schema.get("parameters", {})
+            properties = parameters.get("properties", {})
+            required_fields = parameters.get("required", [])
+
+            for param, details in properties.items():
+                param_type = details.get("type", "unknown")
+                param_description = details.get(
+                    "description", "No description available."
+                )
+                is_required = "(required)" if param in required_fields else "(optional)"
+                docstring += (
+                    f"    {param} ({param_type}): {param_description} {is_required}\n"
+                )
+
+            docstring += (
+                f"\nReturns:\n  dict: Response for the {schema.get('name', '')}.\n"
+            )
+            return docstring
+
+        def add_docstring(func: Callable[..., Any]) -> Callable[..., Any]:
+            schema = self.get_json_schema()
+            exec_docstring = generate_docstring_from_schema(schema)
+            func.__doc__ = exec_docstring
+            return func
+
+        @newTool
+        @add_docstring
+        def execute_function(**kwargs: dict[str, Any]) -> dict[str, Any]:
+            callable_function = self._get_sync_callable(
+                user_id=user_id, variables=variables
+            )
+            result = callable_function(**kwargs)
+            return result
+
+        return execute_function
 
     def get_llamaindex_tool[
         T
