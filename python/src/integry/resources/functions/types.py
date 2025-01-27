@@ -124,16 +124,14 @@ class Function(BaseModel):
         )
         return tool
 
-
     def get_haystack_tool[
         T
     ](
         self,
-        haystack_tool: Callable[..., T], 
+        haystack_tool: Callable[..., T],
         user_id: str,
         variables: Optional[dict[str, Any]] = None,
     ) -> T:
-
         """
         Returns a Haystack tool for the function.
 
@@ -148,12 +146,11 @@ class Function(BaseModel):
         schema = self.get_json_schema()
 
         return haystack_tool(
-            name=schema['name'],
-            description=schema['description'],
+            name=schema["name"],
+            description=schema["description"],
             function=self._get_sync_callable(user_id=user_id, variables=variables),
-            parameters=schema["parameters"]
+            parameters=schema["parameters"],
         )
-
 
     def get_llamaindex_tool[
         T
