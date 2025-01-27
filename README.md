@@ -222,7 +222,34 @@ if replies[0].tool_calls:
 ```
 
 
-## 6. Prediction
+### 6. Smolagents
+
+```python
+import os
+from smolagents import tool, CodeAgent, HfApiModel
+from integry import Integry
+
+user_id = "your user's ID"
+hugging_face_token = "your hugging face token"
+
+# Initialize the client
+integry = Integry(
+    app_key=os.environ.get("INTEGRY_APP_KEY"),
+    app_secret=os.environ.get("INTEGRY_APP_SECRET"),
+)
+
+slack_post_message = await integry.functions.get("slack-post-message", user_id)
+
+slack_tool = slack_post_message.get_smolagent_tool(tool, user_id)
+
+agent = CodeAgent(tools=[slack_tool], model=HfApiModel(token=hugging_face_token))
+
+agent.run("Say hello to my team on slack.")
+
+```
+
+
+## 7. Prediction
 
 ```python
 import os
