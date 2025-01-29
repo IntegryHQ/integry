@@ -153,12 +153,12 @@ class Function(BaseModel):
 
         @newTool
         @add_docstring
-        def execute_function(**kwargs: dict[str, Any]) -> Any:
+        def execute_function(**kwargs: dict[str, Any]) -> dict[str, Any]:
             callable_function = self._get_sync_callable(
                 user_id=user_id, variables=variables
             )
             result = callable_function(**kwargs)
-            return result
+            return cast(dict[str, Any], result)
 
         return execute_function
 
