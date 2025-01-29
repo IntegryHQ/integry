@@ -124,7 +124,7 @@ class Function(BaseModel):
             args_schema=argument_schema,
         )
         return tool
-    
+
     def get_haystack_tool[
         T
     ](
