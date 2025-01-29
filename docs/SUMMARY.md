@@ -129,6 +129,8 @@
 * [Access Control and Testing](flows/access-control-and-testing.md)
 * [Flow FAQs](flows/flow-faqs.md)
 * [Solving the Problem of Order in Multiple Updates](flows/solving-the-problem-of-order-in-multiple-updates.md)
+* [Integrations](flows/integrations/README.md)
+  * [Runs](flows/integrations/runs.md)
 
 ## Embedded UI
 
