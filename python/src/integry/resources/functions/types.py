@@ -92,7 +92,7 @@ class Function(BaseModel):
             The JSON schema.
         """
         return self._json_schema
-    
+
     def get_langchain_tool[
         T
     ](
@@ -152,8 +152,7 @@ class Function(BaseModel):
             function=self._get_sync_callable(user_id=user_id, variables=variables),
             parameters=schema["parameters"],
         )
-    
-    
+
     def get_llamaindex_tool[
         T
     ](
