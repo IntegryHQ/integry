@@ -182,46 +182,6 @@ task = "Say hello to my team on slack."
 result = await agent.achat(task)
 ```
 
-### 5. Haystack
-
-```python
-import os
-from integry import Integry
-from haystack.components.generators.chat import OpenAIChatGenerator
-from haystack.dataclasses import ChatMessage
-from haystack.components.tools import ToolInvoker
-from haystack.tools import Tool
-
-user_id = "your user's ID"
-
-os.environ.get("OPENAI_API_KEY")
-
-# Initialize the client
-integry = Integry(
-    app_key=os.environ.get("INTEGRY_APP_KEY"),
-    app_secret=os.environ.get("INTEGRY_APP_SECRET"),
-)
-
-
-slack_post_message = await integry.functions.get("slack-post-message", user_id)
-
-tool = slack_post_message.get_haystack_tool(Tool, user_id)
-
-chat_generator = OpenAIChatGenerator(model="gpt-4o-mini", tools=[tool])
-
-tool_invoker = ToolInvoker(tools=[tool])
-
-user_message = ChatMessage.from_user("Say hello to my team on slack.")
-
-replies = chat_generator.run(messages=[user_message])["replies"]
-
-if replies[0].tool_calls:
-    tool_messages = tool_invoker.run(messages=replies)["tool_messages"]
-    print(f"tool messages: {tool_messages}")
-
-```
-
-
 ### 6. Smolagents
 
 ```python
