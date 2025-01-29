@@ -124,6 +124,34 @@ class Function(BaseModel):
         )
         return tool
 
+    def get_haystack_tool[
+        T
+    ](
+        self,
+        haystack_tool: Callable[..., T],
+        user_id: str,
+        variables: Optional[dict[str, Any]] = None,
+    ) -> T:
+        """
+        Returns a Haystack tool for the function.
+
+        Args:
+            haystack_tool: This should be Haystack Tool constructor (`from haystack.tools import Tool`).
+            user_id: The user ID for authentication.
+
+        Returns:
+            The Haystack tool.
+        """
+
+        schema = self.get_json_schema()
+
+        return haystack_tool(
+            name=schema["name"],
+            description=schema["description"],
+            function=self._get_sync_callable(user_id=user_id, variables=variables),
+            parameters=schema["parameters"],
+        )
+
     def get_llamaindex_tool[
         T
     ](
