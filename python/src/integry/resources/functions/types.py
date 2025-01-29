@@ -136,7 +136,7 @@ class Function(BaseModel):
         Returns a Haystack tool for the function.
 
         Args:
-            haystack_tool: This should be Haystack Tool method (haystack.tools).
+            haystack_tool: This should be Haystack Tool constructor (`from haystack.tools import Tool`).
             user_id: The user ID for authentication.
 
         Returns:
