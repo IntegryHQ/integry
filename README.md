@@ -190,7 +190,7 @@ from smolagents import tool, CodeAgent, HfApiModel
 from integry import Integry
 
 user_id = "your user's ID"
-hugging_face_token = "your hugging face token"
+hugging_face_token = os.environ.get("HUGGING_FACE_TOKEN")
 
 # Initialize the client
 integry = Integry(
