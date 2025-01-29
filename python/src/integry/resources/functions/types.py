@@ -125,43 +125,6 @@ class Function(BaseModel):
         )
         return tool
 
-    def get_smolagent_tool[
-        T
-    ](
-        self,
-        newTool: Callable[..., T],
-        user_id: str,
-        variables: Optional[dict[str, Any]] = None,
-    ) -> T:
-        """
-        Returns a SmolAgent tool for the function.
-
-        Args:
-            newTool: This should be SmolAgent tool.
-            user_id: The user ID for authentication
-            variables: The variables to use for mapping the arguments, if applicable.
-
-        Returns:
-            The SmolAgent tool.
-        """
-
-        def add_docstring(func: Callable[..., Any]) -> Callable[..., Any]:
-            schema = self.get_json_schema()
-            exec_docstring = generate_docstring_from_schema_for_smolagent(schema)
-            func.__doc__ = exec_docstring
-            return func
-
-        @newTool
-        @add_docstring
-        def execute_function(**kwargs: dict[str, Any]) -> dict[str, Any]:
-            callable_function = self._get_sync_callable(
-                user_id=user_id, variables=variables
-            )
-            result = callable_function(**kwargs)
-            return cast(dict[str, Any], result)
-
-        return execute_function
-
     def get_llamaindex_tool[
         T
     ](
@@ -237,6 +200,43 @@ class Function(BaseModel):
             name=self.name,
             description=self.description,
         )
+
+    def get_smolagent_tool[
+        T
+    ](
+        self,
+        newTool: Callable[..., T],
+        user_id: str,
+        variables: Optional[dict[str, Any]] = None,
+    ) -> T:
+        """
+        Returns a SmolAgent tool for the function.
+
+        Args:
+            newTool: This should be SmolAgent tool.
+            user_id: The user ID for authentication
+            variables: The variables to use for mapping the arguments, if applicable.
+
+        Returns:
+            The SmolAgent tool.
+        """
+
+        def add_docstring(func: Callable[..., Any]) -> Callable[..., Any]:
+            schema = self.get_json_schema()
+            exec_docstring = generate_docstring_from_schema_for_smolagent(schema)
+            func.__doc__ = exec_docstring
+            return func
+
+        @newTool
+        @add_docstring
+        def execute_function(**kwargs: dict[str, Any]) -> dict[str, Any]:
+            callable_function = self._get_sync_callable(
+                user_id=user_id, variables=variables
+            )
+            result = callable_function(**kwargs)
+            return cast(dict[str, Any], result)
+
+        return execute_function
 
     async def __call__(
         self,

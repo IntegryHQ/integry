@@ -209,7 +209,7 @@ agent.run("Say hello to my team on slack.")
 ```
 
 
-## 7. Prediction
+## 3. Prediction
 
 ```python
 import os
