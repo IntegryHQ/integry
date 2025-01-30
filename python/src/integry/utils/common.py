@@ -34,7 +34,7 @@ def generate_docstring_from_schema_for_smolagent(schema: dict[str, Any]) -> str:
     required_fields = parameters.get("required", [])
 
     for param, details in properties.items():
-        param_type = details.get("type", "unknown")
+        param_type = details.get("type")
         param_description = details.get("description", "No description available.")
         is_required = "(required)" if param in required_fields else "(optional)"
         docstring += f"    {param} ({param_type}): {param_description} {is_required}\n"
