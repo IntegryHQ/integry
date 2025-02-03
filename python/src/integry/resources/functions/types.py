@@ -13,7 +13,7 @@ from typing import (
     cast,
 )
 
-from utils.common import generate_docstring_from_schema_for_smolagent
+from integry.utils.common import generate_docstring_from_schema_for_smolagent
 from integry.utils.pydantic import get_pydantic_model_from_json_schema
 
 if TYPE_CHECKING:
