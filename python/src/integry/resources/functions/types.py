@@ -158,7 +158,7 @@ class Function(BaseModel):
         T
     ](
         self,
-    ) -> T:
+    ) -> Dict[str, Any]:
         """
         Returns a Litellm tool for the function.
 
