@@ -248,8 +248,42 @@ agent.run("Say hello to my team on slack.")
 
 ```
 
+### 7. Litellm
 
-## 3. Prediction
+```python
+import litellm
+from integry import Integry
+from integry import handle_litellm_tool_calls
+
+user_id = "your user's ID"
+
+os.environ.get("OPENAI_API_KEY")
+
+# Initialize the client
+integry = Integry(
+    app_key=os.environ.get("INTEGRY_APP_KEY"),
+    app_secret=os.environ.get("INTEGRY_APP_SECRET"),
+)
+
+slack_post_message = await integry.functions.get("slack-post-message", user_id)
+
+tool = slack_function.get_litellm_tool();
+
+messages = [{"role": "user", "content": "Say hello to my team on slack."}]
+
+response = litellm.completion(
+    model="gpt-3.5-turbo-1106",
+    messages=messages,
+    tools=[tool],
+    tool_choice="auto",
+)
+
+handle_litellm_tool_calls(response, user_id, slack_post_message)
+
+```
+
+
+## 8. Prediction
 
 ```python
 import os
