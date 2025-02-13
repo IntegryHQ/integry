@@ -162,7 +162,7 @@ class Function(BaseModel):
         """
         Returns a Litellm tool for the function.
 
-        This method generates a Litellm tool based on the function's JSON schema.
+        Generates a Litellm tool based on the function's JSON schema.
 
         Returns:
             The Litellm tool.
@@ -173,7 +173,7 @@ class Function(BaseModel):
         return {
             "type": "function",
             "function": {
-                "name": "callable_function",
+                "name": schema['name'],
                 "description": schema['description'],
                 "parameters": schema['parameters']
             },
