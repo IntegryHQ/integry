@@ -153,6 +153,32 @@ class Function(BaseModel):
             parameters=schema["parameters"],
         )
 
+
+    def get_litellm_tool[
+        T
+    ](
+        self,
+    ) -> Dict[str, Any]:
+        """
+        Returns a Litellm tool for the function.
+
+        Generates a Litellm tool based on the function's JSON schema.
+
+        Returns:
+            The Litellm tool.
+        """
+
+        schema = self.get_json_schema()
+
+        return {
+            "type": "function",
+            "function": {
+                "name": schema['name'],
+                "description": schema['description'],
+                "parameters": schema['parameters']
+            },
+        }
+
     def get_llamaindex_tool[
         T
     ](
