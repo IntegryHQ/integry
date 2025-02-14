@@ -267,18 +267,16 @@ integry = Integry(
 
 slack_post_message = await integry.functions.get("slack-post-message", user_id)
 
-tool = slack_function.get_litellm_tool();
-
-messages = [{"role": "user", "content": "Say hello to my team on slack."}]
-
 response = litellm.completion(
     model="gpt-3.5-turbo-1106",
     messages=messages,
-    tools=[tool],
+    tools=[slack_function.get_litellm_tool()],
     tool_choice="auto",
 )
 
-handle_litellm_tool_calls(response, user_id, slack_post_message)
+messages = [{"role": "user", "content": "Say hello to my team on slack."}]
+
+await handle_litellm_tool_calls(response, user_id, [slack_post_message])
 
 ```
 
