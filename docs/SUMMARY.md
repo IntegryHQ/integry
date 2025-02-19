@@ -115,6 +115,7 @@
   * [AutoGen](functions/agent-frameworks/autogen.md)
   * [LlamaIndex](functions/agent-frameworks/llamaindex.md)
   * [Haystack](functions/agent-frameworks/haystack.md)
+  * [Smolagent](functions/agent-frameworks/smolagent.md)
 
 ## Flows
 
