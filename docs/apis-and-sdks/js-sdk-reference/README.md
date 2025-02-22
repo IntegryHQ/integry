@@ -421,11 +421,11 @@ integry.showFunctionUI("slack-post-message", {
   channel: "general",
   message: "Hello, team!"
 }
-</code></pre></td><td>false</td></tr><tr><td>options.payload</td><td>object</td><td>An object containing data from your app that users can map to function fields.</td><td><pre><code>{
+</code></pre></td><td>false</td></tr><tr><td><code>options.payload</code></td><td>object</td><td>An object containing data from your app that users can map to function fields.</td><td><pre><code>{
   first_name: "John",
   last_name: "Doe"
 }
-</code></pre></td><td>false</td></tr><tr><td>options.autoMapPayload</td><td>boolean</td><td>An option to predict arguments by using the payload you pass.</td><td>false</td><td>false</td></tr><tr><td>options.connectedAccountId</td><td>string</td><td>An optional parameter to pass connected account id to use to make function calls.</td><td>12345</td><td>false</td></tr></tbody></table>
+</code></pre></td><td>false</td></tr><tr><td><code>options.autoMapPayload</code></td><td>boolean</td><td>An option to predict arguments by using the payload you pass.</td><td>false</td><td>false</td></tr><tr><td><code>options.connectedAccountId</code></td><td>string</td><td>An optional parameter to pass connected account id to use to make function calls.</td><td>12345</td><td>false</td></tr></tbody></table>
 
 #### Returns
 
