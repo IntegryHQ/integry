@@ -417,7 +417,7 @@ integry.showFunctionUI("slack-post-message", {
 
 #### Method parameters
 
-<table><thead><tr><th width="140">Name</th><th width="83">Type</th><th width="346">Description</th><th width="120">Example</th><th>Required</th></tr></thead><tbody><tr><td><code>functionName</code></td><td>string</td><td>The name of the function to render.</td><td>slack-post-message</td><td>true</td></tr><tr><td><code>options</code></td><td>object</td><td>An object containing the function options.</td><td></td><td>false</td></tr><tr><td><code>options.params</code></td><td>object</td><td>An object containing the function parameters.</td><td><pre><code>{
+<table><thead><tr><th width="140">Name</th><th width="83">Type</th><th width="381">Description</th><th width="156">Example</th><th>Required</th></tr></thead><tbody><tr><td><code>functionName</code></td><td>string</td><td>The name of the function to render.</td><td>slack-post-message</td><td>true</td></tr><tr><td><code>options</code></td><td>object</td><td>An object containing the function options.</td><td></td><td>false</td></tr><tr><td><code>options.params</code></td><td>object</td><td>An object containing the function parameters.</td><td><pre><code>{
   channel: "general",
   message: "Hello, team!"
 }
