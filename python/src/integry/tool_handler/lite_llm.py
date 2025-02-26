@@ -1,30 +1,30 @@
 import json
-from typing import Any, Optional, Dict, List
+from typing import Any, Optional
 from integry.resources.functions.types import Function
 
 
 async def handle_litellm_tool_calls(
-    response: Dict[str, Any],
+    response: dict[str, Any],
     user_id: str,
-    call_functions: List[Function],
-    variables: Optional[Dict[str, Any]] = None,
-) -> Optional[List[Dict[str, Any]]]:
+    call_functions: list[Function],
+    variables: Optional[dict[str, Any]] = None,
+) -> list[dict[str, Any]]:
     """
-    Processes multiple tool calls from LiteLLM's response and executes the corresponding function.
+    Processes multiple tool calls from LiteLLM's response and executes the corresponding functions.
 
     Args:
         response: The LLM response possibly containing tool calls.
         user_id: The user ID on whose behalf the Integry function will be called.
-        call_functions: A list of functions that can be dynamically called.
+        call_functions: A list of functions that can be called.
         variables: Additional variables passed to the callable function.
 
     Returns:
-        A list of results from executed tool functions, or None if no tool calls are found.
+        A list of results from executed tool functions. The order of results matches the order of tool calls in the response.
     """
-    tool_calls = response.choices[0].message.tool_calls;
+    tool_calls = response.choices[0].message.tool_calls
 
     if not tool_calls:
-        return None
+        return []
 
     results = []
 
@@ -32,9 +32,14 @@ async def handle_litellm_tool_calls(
         function_name = tool_call.function.name
         function_args = json.loads(tool_call.function.arguments)
 
-        for call_function in call_functions:
-            if call_function.name == function_name:
-                result = await call_function._get_callable(user_id, variables)(**function_args)
-                results.append(result)
+        matching_function = next(
+            (func for func in call_functions if func.name == function_name), None
+        )
 
-    return results if results else None
+        if matching_function:
+            result = await matching_function._get_callable(user_id, variables)(
+                **function_args
+            )
+            results.append(result)
+
+    return results
