@@ -37,9 +37,7 @@ async def handle_litellm_tool_calls(
         )
 
         if matching_function:
-            result = await matching_function._get_callable(user_id, variables)(
-                **function_args
-            )
+            result = await matching_function(user_id, function_args, variables)
             results.append(result)
 
     return results
