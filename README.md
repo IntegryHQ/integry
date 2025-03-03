@@ -281,7 +281,7 @@ await handle_litellm_tool_calls(response, user_id, [slack_post_message])
 ```
 
 
-## 8. Prediction
+## 3. Prediction
 
 ```python
 import os
