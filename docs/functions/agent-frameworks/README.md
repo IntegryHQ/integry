@@ -14,3 +14,4 @@ Use Integry to allow your agents to access hundreds of apps.
 4. [LlamaIndex](llamaindex.md)
 5. [Haystack](haystack.md)
 6. [Smolagent](smolagent.md)
+7. [LiteLLM](litellm.md)

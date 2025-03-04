@@ -1,12 +1,12 @@
 ---
 description: >-
-  This guide explains how to use Integry with Haystack to post a message on
+  This guide explains how to use Integry with LiteLLM to post a message on
   Slack.
 ---
 
-# Haystack
+# LiteLLM
 
-## 1. Install Required Libraries
+1\. Install Required Libraries
 
 First, you need to install the necessary packages:
 
@@ -15,10 +15,10 @@ Integry requires Python version 3.12 or higher
 {% endhint %}
 
 * **Integry** enables seamless integration of structured tools and functions from over 300 apps
-* **Haystack** is AI orchestration framework to build customizable, production-ready LLM applications.
+* **LiteLLM** is an AI orchestration framework that simplifies model access, spend tracking, and fallbacks across 100+ LLMs in the OpenAI format
 
 ```python
-pip install integry farm-haystack
+pip install integry litellm
 ```
 
 ## 2. Initialize Integry & Agent
@@ -26,12 +26,9 @@ pip install integry farm-haystack
 Import the necessary Libraries
 
 ```python
-import os
+import litellm
 from integry import Integry
-from haystack.components.generators.chat import OpenAIChatGenerator
-from haystack.dataclasses import ChatMessage
-from haystack.components.tools import ToolInvoker
-from haystack.tools import Tool
+from integry import handle_litellm_tool_calls
 ```
 
 `user_id` is how you define users in your app or agent. By default, your email used during your Integry signup can act as a user\_id as well. Function Calls and Integrations are linked to this id.
@@ -74,16 +71,19 @@ os.environ.get("OPENAI_API_KEY")
 
 Perfect! Before you can use the functions available in Integry, you need to add the app to Integry. Slack, however, is pre-added to your Integry account, so there’s no need to add it manually.
 
-To enable the assistant to call the function, we register it with the Haystack agents. Now that everything is set up, we will send a message in Slack using the Integry slack-post-message function.
+To enable the assistant to call the function, we register it with the LiteLLM agents. Now that everything is set up, we will send a message in Slack using the Integry slack-post-message function.
 
 ```python
 slack_post_message = await integry.functions.get("slack-post-message", user_id)
 
-tool = slack_post_message.get_haystack_tool(Tool, user_id)
+messages = [{"role": "user", "content": "Say hello to my team on slack."}]
 
-chat_generator = OpenAIChatGenerator(model="gpt-4o-mini", tools=[tool])
-
-tool_invoker = ToolInvoker(tools=[tool])
+response = await litellm.acompletion(
+    model="gpt-3.5-turbo-1106",
+    messages=messages,
+    tools=[slack_post_message.get_litellm_tool()],
+    tool_choice="auto",
+)
 ```
 
 ## 4. **Connect Your Slack Account**
@@ -102,22 +102,16 @@ This will print a URL which can be opened in a web browser to connect Slack.
 This will execute the agent and send a **Hello** message to the Slack channel.
 
 ```python
-user_message = ChatMessage.from_user("Say hello to my team on slack.")
-
-replies = chat_generator.run(messages=[user_message])["replies"]
-
-if replies[0].tool_calls:
-    tool_messages = tool_invoker.run(messages=replies)["tool_messages"]
-    print(f"tool messages: {tool_messages}")
+await handle_litellm_tool_calls(response, user_id, [slack_post_message])
 ```
 
 This will send the message to the slack channel. Here is reference image.
 
-<figure><img src="../../.gitbook/assets/image (2) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
 The message has been sent successfully in slack #random channel. You can verify the successful message delivery by checking the highlighted content in the response below.
 
-<pre data-overflow="wrap"><code>tool messages: [ChatMessage(_role=&#x3C;ChatRole.TOOL: 'tool'>, <a data-footnote-ref href="#user-content-fn-1">_content=[ToolCallResult(result='network_code=200 </a>output={\'ok\': True, \'channel\': \'C086GCY1J9E\', \'ts\': \'1739183566.488729\', \'message\': {\'user\': \'U086GBQHLG0\', \'type\': \'message\', \'ts\': \'1739183566.488729\', \'bot_id\': \'B086E311JTB\', \'app_id\': \'A6FQL4KQC\', \'text\': "Hello team! Hope you\'re all having a great day!", \'team\': \'T086682UW57\', \'bot_profile\': {\'id\': \'B086E311JTB\', \'app_id\': \'A6FQL4KQC\', \'name\': \'Integry\', \'icons\': {\'image_36\': \'https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-08-09/225182834294_8020ddc74d7822b48ea1_36.png\', \'image_48\': \'https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-08-09/225182834294_8020ddc74d7822b48ea1_48.png\', \'image_72\': \'https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-08-09/225182834294_8020ddc74d7822b48ea1_72.png\'}, \'deleted\': False, \'updated\': 1734709233, \'team_id\': \'T086682UW57\'}, \'blocks\': [{\'type\': \'rich_text\', \'block_id\': \'WiFT\', \'elements\': [{\'type\': \'rich_text_section\', \'elements\': [{\'type\': \'text\', \'text\': "Hello team! Hope you\'re all having a great day!"}]}]}]}}', origin=ToolCall(tool_name='slack-post-message', arguments={'channel': '#random', 'text': "Hello team! Hope you're all having a great day!"}, id='call_oaaLsi9pxAoPUrH7cjH8Mp8t'), error=False)], _name=None, _meta={})]
+<pre data-overflow="wrap"><code>[<a data-footnote-ref href="#user-content-fn-1">FunctionCallOutput(network_code=200, output={'ok':</a> True, 'channel': 'C086GCY1J9E', 'ts': '1741104288.244099', 'message': {'user': 'U086GBQHLG0', 'type': 'message', 'ts': '1741104288.244099', 'bot_id': 'B086E311JTB', 'app_id': 'A6FQL4KQC', 'text': 'Hello team! Just wanted to say hi from the assistant bot.', 'team': 'T086682UW57', 'bot_profile': {'id': 'B086E311JTB', 'app_id': 'A6FQL4KQC', 'name': 'Integry', 'icons': {'image_36': 'https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-08-09/225182834294_8020ddc74d7822b48ea1_36.png', 'image_48': 'https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-08-09/225182834294_8020ddc74d7822b48ea1_48.png', 'image_72': 'https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-08-09/225182834294_8020ddc74d7822b48ea1_72.png'}, 'deleted': False, 'updated': 1734709233, 'team_id': 'T086682UW57'}, 'blocks': [{'type': 'rich_text', 'block_id': '12W', 'elements': [{'type': 'rich_text_section', 'elements': [{'type': 'text', 'text': 'Hello team! Just wanted to say hi from the assistant bot.'}]}]}]}})]
 </code></pre>
 
 [^1]: This success response show's that message has been sent successfully in slack channel.
