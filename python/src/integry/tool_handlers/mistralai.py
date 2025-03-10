@@ -4,7 +4,9 @@ from integry.resources.functions.types import Function, FunctionCallOutput
 
 FunctionCall = TypedDict("FunctionCall", {"name": str, "arguments": str})
 
-ToolCall = TypedDict("ToolCall", {"function": FunctionCall, "id": str, "type": str})
+ToolCall = TypedDict(
+    "ToolCall", {"function": FunctionCall, "id": str, "type": Optional[str]}
+)
 
 Message = TypedDict(
     "Message",
@@ -16,30 +18,29 @@ Choice = TypedDict(
     {"index": int, "message": Message, "finish_reason": str},
 )
 
-LiteLLMResponse = TypedDict(
-    "LiteLLMResponse",
+MistralResponse = TypedDict(
+    "MistralResponse",
     {
         "id": str,
         "created": int,
         "model": str,
         "object": str,
-        "system_fingerprint": str,
         "choices": list[Choice],
     },
 )
 
 
-async def handle_litellm_tool_calls(
-    response: LiteLLMResponse,
+async def handle_mistralai_tool_calls(
+    response: MistralResponse,
     user_id: str,
     call_functions: list[Function],
     variables: Optional[dict[str, Any]] = None,
 ) -> list[FunctionCallOutput]:
     """
-    Processes multiple tool calls from LiteLLM's response and executes the corresponding functions.
+    Processes multiple tool calls from Mistral's response and executes the corresponding functions.
 
     Args:
-        response: The LLM response possibly containing tool calls.
+        response: The Mistral response possibly containing tool calls.
         user_id: The user ID on whose behalf the Integry function will be called.
         call_functions: A list of functions that can be called.
         variables: Additional variables passed to the callable function.
@@ -47,31 +48,35 @@ async def handle_litellm_tool_calls(
     Returns:
         A list of results from executed tool functions. The order of results matches the order of tool calls in the response.
     """
-    choices = response["choices"]
+    choices = getattr(response, "choices", [])
     if not choices:
         return []
 
-    tool_calls = choices[0]["message"].get("tool_calls")
+    first_choice = choices[0]
+    message = getattr(first_choice, "message", {})
 
+    tool_calls = getattr(message, "tool_calls", [])
     if not tool_calls:
         return []
 
     results: list[FunctionCallOutput] = []
 
     for tool_call in tool_calls:
-        function_name = tool_call["function"]["name"]
-        function_args = json.loads(tool_call["function"]["arguments"])
+        function_data = getattr(tool_call, "function", {})
+        function_name = getattr(function_data, "name", "")
+        function_args = getattr(function_data, "arguments", "{}")
 
-        matching_function = next(
-            (
-                func
-                for func in call_functions
-                if getattr(func, "name", None) == function_name
-            ),
-            None,
+        function_args = (
+            json.loads(function_args)
+            if isinstance(function_args, str)
+            else function_args
         )
 
-        if matching_function is not None:
+        matching_function = next(
+            (func for func in call_functions if func.name == function_name), None
+        )
+
+        if matching_function:
             result: FunctionCallOutput = await matching_function(
                 user_id, function_args, variables
             )

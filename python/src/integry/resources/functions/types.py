@@ -93,9 +93,7 @@ class Function(BaseModel):
         """
         return self._json_schema
 
-    def get_langchain_tool[
-        T
-    ](
+    def get_langchain_tool[T](
         self,
         from_function: Callable[..., T],
         user_id: str,
@@ -125,9 +123,7 @@ class Function(BaseModel):
         )
         return tool
 
-    def get_haystack_tool[
-        T
-    ](
+    def get_haystack_tool[T](
         self,
         haystack_tool: Callable[..., T],
         user_id: str,
@@ -153,10 +149,7 @@ class Function(BaseModel):
             parameters=schema["parameters"],
         )
 
-
-    def get_litellm_tool[
-        T
-    ](
+    def get_litellm_tool[T](
         self,
     ) -> Dict[str, Any]:
         """
@@ -173,15 +166,36 @@ class Function(BaseModel):
         return {
             "type": "function",
             "function": {
-                "name": schema['name'],
-                "description": schema['description'],
-                "parameters": schema['parameters']
+                "name": schema["name"],
+                "description": schema["description"],
+                "parameters": schema["parameters"],
             },
         }
 
-    def get_llamaindex_tool[
-        T
-    ](
+    def get_mistralai_tool[T](
+        self,
+    ) -> Dict[str, Any]:
+        """
+        Returns a Mistral AI tool for the function.
+
+        Generates a Mistral AI tool based on the function's JSON schema.
+
+        Returns:
+            The Mistral AI tool.
+        """
+
+        schema = self.get_json_schema()
+
+        return {
+            "type": "function",
+            "function": {
+                "name": schema["name"],
+                "description": schema["description"],
+                "parameters": schema["parameters"],
+            },
+        }
+
+    def get_llamaindex_tool[T](
         self,
         tool_from_defaults: Callable[..., T],
         tools_metadata: Callable[..., Any],
@@ -255,9 +269,7 @@ class Function(BaseModel):
             description=self.description,
         )
 
-    def get_smolagent_tool[
-        T
-    ](
+    def get_smolagent_tool[T](
         self,
         newTool: Callable[..., T],
         user_id: str,
