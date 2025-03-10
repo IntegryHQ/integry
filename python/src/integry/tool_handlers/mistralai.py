@@ -4,7 +4,9 @@ from integry.resources.functions.types import Function, FunctionCallOutput
 
 FunctionCall = TypedDict("FunctionCall", {"name": str, "arguments": str})
 
-ToolCall = TypedDict("ToolCall", {"function": FunctionCall, "id": str, "type": Optional[str]})
+ToolCall = TypedDict(
+    "ToolCall", {"function": FunctionCall, "id": str, "type": Optional[str]}
+)
 
 Message = TypedDict(
     "Message",
@@ -26,6 +28,7 @@ MistralResponse = TypedDict(
         "choices": list[Choice],
     },
 )
+
 
 async def handle_mistralai_tool_calls(
     response: MistralResponse,
