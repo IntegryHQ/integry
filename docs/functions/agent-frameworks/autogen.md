@@ -124,7 +124,7 @@ chat_result = await user_proxy.a_initiate_chat(
 
 This will send the message to the slack channel. Here is reference image
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 The message has been sent successfully in slack #random channel. You can verify the successful message delivery by checking the highlighted content in the response below.
 
@@ -150,7 +150,7 @@ Arguments:
 User (to Assistant):
 
 ***** Response from calling tool (call_ClWxh8HVMTaR74K91HI3ixEa) *****
-<strong><a data-footnote-ref href="#user-content-fn-1">{</a>"<a data-footnote-ref href="#user-content-fn-2">network_code":200,"output":{"</a>ok":true,"channel":"C086HKZMTSS","ts":"1735395154.257879","message":{"user":"U086GBQHLG0","type":"message","ts":"1735395154.257879","bot_id":"B086E311JTB","app_id":"A6FQL4KQC","text":"Hello from autogen to the team!","team":"T086682UW57","bot_profile":{"id":"B086E311JTB","app_id":"A6FQL4KQC","name":"Integry","icons":{"image_36":"https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-08-09/225182834294_8020ddc74d7822b48ea1_36.png","image_48":"https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-08-09/225182834294_8020ddc74d7822b48ea1_48.png","image_72":"https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-08-09/225182834294_8020ddc74d7822b48ea1_72.png"},"deleted":false,"updated":1734709233,"team_id":"T086682UW57"},"blocks":[{"type":"rich_text","block_id":"BjV","elements":[{"type":"rich_text_section","elements":[{"type":"text","text":"Hello from autogen to the team!"}]}]}]}}}
+<strong><a data-footnote-ref href="#user-content-fn-1">{</a>"<a data-footnote-ref href="#user-content-fn-1">network_code":200,"output":{"</a>ok":true,"channel":"C086HKZMTSS","ts":"1735395154.257879","message":{"user":"U086GBQHLG0","type":"message","ts":"1735395154.257879","bot_id":"B086E311JTB","app_id":"A6FQL4KQC","text":"Hello from autogen to the team!","team":"T086682UW57","bot_profile":{"id":"B086E311JTB","app_id":"A6FQL4KQC","name":"Integry","icons":{"image_36":"https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-08-09/225182834294_8020ddc74d7822b48ea1_36.png","image_48":"https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-08-09/225182834294_8020ddc74d7822b48ea1_48.png","image_72":"https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-08-09/225182834294_8020ddc74d7822b48ea1_72.png"},"deleted":false,"updated":1734709233,"team_id":"T086682UW57"},"blocks":[{"type":"rich_text","block_id":"BjV","elements":[{"type":"rich_text_section","elements":[{"type":"text","text":"Hello from autogen to the team!"}]}]}]}}}
 </strong>**********************************************************************
 
 --------------------------------------------------------------------------------
@@ -167,5 +167,3 @@ Assistant (to User):
 </code></pre>
 
 [^1]: This success response show's that message has been sent successfully in slack channel.
-
-[^2]: This success response show's that message has been sent successfully in slack channel.

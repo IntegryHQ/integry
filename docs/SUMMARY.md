@@ -114,6 +114,9 @@
   * [CrewAI](functions/agent-frameworks/crewai.md)
   * [AutoGen](functions/agent-frameworks/autogen.md)
   * [LlamaIndex](functions/agent-frameworks/llamaindex.md)
+  * [Haystack](functions/agent-frameworks/haystack.md)
+  * [Smolagent](functions/agent-frameworks/smolagent.md)
+  * [LiteLLM](functions/agent-frameworks/litellm.md)
 
 ## Flows
 

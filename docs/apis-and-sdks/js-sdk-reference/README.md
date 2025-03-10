@@ -394,7 +394,7 @@ Renders a list of functions. You can filter by app. Coming soon!
 
 ### Show a function
 
-`showFunction(functionName, params, connectedAccountId)`
+`showFunction(functionName, options)`
 
 Shows a function's parameters (with pre-filled values, if provided). The user can provide/modify the values. Take the output of this method to [call the function](./#call-a-function).
 
@@ -406,7 +406,9 @@ const params = {
   message: "Hello, team!"
 };
 
-integry.showFunctionUI("slack-post-message", params, "abc123").then((result) => {
+integry.showFunctionUI("slack-post-message", {
+  params: params
+}).then((result) => {
   console.log("Function parameters filled-in by the user:", result);
 }).catch((error) => {
   console.error("Failed to load function UI:", error);
@@ -415,7 +417,15 @@ integry.showFunctionUI("slack-post-message", params, "abc123").then((result) => 
 
 #### Method parameters
 
-<table><thead><tr><th width="140">Name</th><th width="83">Type</th><th width="346">Description</th><th width="120">Example</th><th>Required</th></tr></thead><tbody><tr><td><code>functionName</code></td><td>string</td><td>The name of the function to render.</td><td>slack-post-message</td><td>true</td></tr><tr><td><code>params</code></td><td>object</td><td>An object containing the function parameters.</td><td>{"limit":5}</td><td>true</td></tr><tr><td><code>connectedAccountId</code></td><td>string</td><td>The connected account to use for executing the action. Only use if the user has connected multiple accounts.</td><td>12456</td><td>false</td></tr></tbody></table>
+<table><thead><tr><th width="140">Name</th><th width="83">Type</th><th width="381">Description</th><th width="156">Example</th><th>Required</th></tr></thead><tbody><tr><td><code>functionName</code></td><td>string</td><td>The name of the function to render.</td><td>slack-post-message</td><td>true</td></tr><tr><td><code>options</code></td><td>object</td><td>An object containing the function options.</td><td></td><td>false</td></tr><tr><td><code>options.params</code></td><td>object</td><td>An object containing the function parameters.</td><td><pre><code>{
+  channel: "general",
+  message: "Hello, team!"
+}
+</code></pre></td><td>false</td></tr><tr><td><code>options.payload</code></td><td>object</td><td>An object containing data from your app that users can map to function fields.</td><td><pre><code>{
+  first_name: "John",
+  last_name: "Doe"
+}
+</code></pre></td><td>false</td></tr><tr><td><code>options.autoMapPayload</code></td><td>boolean</td><td>An option to predict arguments by using the payload you pass.</td><td>false</td><td>false</td></tr><tr><td><code>options.connectedAccountId</code></td><td>string</td><td>An optional parameter to pass connected account id to use to make function calls.</td><td>12345</td><td>false</td></tr></tbody></table>
 
 #### Returns
 
