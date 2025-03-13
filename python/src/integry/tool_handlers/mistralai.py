@@ -8,20 +8,24 @@ class FunctionCall(BaseModel):
     name: str
     arguments: str
 
+
 class ToolCall(BaseModel):
     function: FunctionCall
     id: str
     type: Optional[str] = None
+
 
 class Message(BaseModel):
     role: str
     content: Optional[str] = None
     tool_calls: Optional[list[ToolCall]] = None
 
+
 class Choice(BaseModel):
     index: int
     message: Message
     finish_reason: str
+
 
 class MistralResponse(BaseModel):
     id: str
@@ -29,6 +33,7 @@ class MistralResponse(BaseModel):
     model: str
     object: str
     choices: list[Choice]
+
 
 async def handle_mistralai_tool_calls(
     response: MistralResponse,
