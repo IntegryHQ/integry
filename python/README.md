@@ -282,7 +282,6 @@ await handle_litellm_tool_calls(response, user_id, [slack_post_message])
 ### 8. Mistral AI
 
 ```python
-import litellm
 from mistralai import Mistral
 from integry import Integry
 from integry import handle_mistralai_tool_calls
@@ -312,7 +311,6 @@ response = await client.chat.complete_async(
 )
 
 await handle_mistralai_tool_calls(response, user_id, [slack_post_message])
-
 ```
 
 
