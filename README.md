@@ -277,7 +277,6 @@ response = await litellm.acompletion(
 )
 
 await handle_litellm_tool_calls(response, user_id, [slack_post_message])
-
 ```
 
 ### 8. Mistral AI
@@ -313,7 +312,6 @@ response = await client.chat.complete_async(
 )
 
 await handle_mistralai_tool_calls(response, user_id, [slack_post_message])
-
 ```
 
 ## 3. Prediction

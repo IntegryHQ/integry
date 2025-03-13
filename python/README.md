@@ -312,7 +312,6 @@ response = await client.chat.complete_async(
 )
 
 await handle_mistralai_tool_calls(response, user_id, [slack_post_message])
-
 ```
 
 
