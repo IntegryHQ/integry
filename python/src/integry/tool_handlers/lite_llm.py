@@ -28,6 +28,7 @@ LiteLLMResponse = TypedDict(
     },
 )
 
+
 async def handle_litellm_tool_calls(
     response: LiteLLMResponse,
     user_id: str,

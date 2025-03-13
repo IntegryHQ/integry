@@ -280,6 +280,41 @@ await handle_litellm_tool_calls(response, user_id, [slack_post_message])
 
 ```
 
+### 8. Mistral AI
+
+```python
+import litellm
+from mistralai import Mistral
+from integry import Integry
+from integry import handle_mistralai_tool_calls
+
+user_id = "your user's ID"
+
+api_key = os.environ.get("MISTRAL_API_KEY")
+model = "mistral-large-latest"
+client = Mistral(api_key=api_key)
+
+
+# Initialize the client
+integry = Integry(
+    app_key=os.environ.get("INTEGRY_APP_KEY"),
+    app_secret=os.environ.get("INTEGRY_APP_SECRET"),
+)
+
+slack_post_message = await integry.functions.get("slack-post-message", user_id)
+
+messages = [{"role": "user", "content": "Say hello to my team on slack."}]
+
+response = await client.chat.complete_async(
+    model=model,
+    messages=messages,
+    tools=[slack_post_message.get_mistralai_tool()],
+    tool_choice="auto"
+)
+
+await handle_mistralai_tool_calls(response, user_id, [slack_post_message])
+
+```
 
 ## 3. Prediction
 
