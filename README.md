@@ -316,7 +316,7 @@ await handle_mistralai_tool_calls(response, user_id, [slack_post_message])
 
 ```
 
-## 9. Prediction
+## 3. Prediction
 
 ```python
 import os
