@@ -33,7 +33,7 @@ class MistralResponse(BaseModel):
 async def handle_mistralai_tool_calls(
     response: MistralResponse,
     user_id: str,
-    call_functions: list[Function],
+    functions_to_call: list[Function],
     variables: Optional[dict[str, Any]] = None,
 ) -> list[FunctionCallOutput]:
     """
@@ -42,7 +42,7 @@ async def handle_mistralai_tool_calls(
     Args:
         response: The Mistral response possibly containing tool calls.
         user_id: The user ID on whose behalf the Integry function will be called.
-        call_functions: A list of functions that can be called.
+        functions_to_call: A list of functions that can be called.
         variables: Additional variables passed to the callable function.
 
     Returns:
@@ -65,7 +65,7 @@ async def handle_mistralai_tool_calls(
         matching_function = next(
             (
                 func
-                for func in call_functions
+                for func in functions_to_call
                 if getattr(func, "name", None) == function_name
             ),
             None,
