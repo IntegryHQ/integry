@@ -117,6 +117,7 @@
   * [Haystack](functions/agent-frameworks/haystack.md)
   * [Smolagent](functions/agent-frameworks/smolagent.md)
   * [LiteLLM](functions/agent-frameworks/litellm.md)
+  * [Mistral AI](functions/agent-frameworks/mistral-ai.md)
 
 ## Flows
 

@@ -15,3 +15,4 @@ Use Integry to allow your agents to access hundreds of apps.
 5. [Haystack](haystack.md)
 6. [Smolagent](smolagent.md)
 7. [LiteLLM](litellm.md)
+8. [Mistral AI](mistral-ai.md)
