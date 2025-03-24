@@ -983,18 +983,15 @@ integry.functions.call("slack-post-message", {
 {% code lineNumbers="true" %}
 ```python
 await integry.functions.call(
-        "slack-post-message", 
-        {
-            "connected_account_id": "123456",
-            "channel": "random",
-            "text": "{first_name} {last_name} just signed up!"
-        },
-        user_id,
-        {
-            "first_name": "John",
-            "last_name": "Doe"
-        }
-    )
+    "slack-post-message",
+    user_id="123456",
+    connected_account_id=1234,
+    arguments={
+        "channel": "random",
+        "text": "{first_name} {last_name} just signed up!",
+    },
+    variables={"first_name": "John", "last_name": "Doe"},
+)
 ```
 {% endcode %}
 {% endtab %}
