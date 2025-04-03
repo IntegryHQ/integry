@@ -1,9 +1,21 @@
 ---
-icon: key
 hidden: true
+icon: key
 ---
 
-# Key Concepts
+# Getting Started
+
+## What is Integry? <a href="#h_01hqnsten2zpbbqw08fwb0psje" id="h_01hqnsten2zpbbqw08fwb0psje"></a>
+
+Integry is an Integration Platform as a Service (iPaaS) that allows you to embed integrations inside your products in minutes.
+
+You can create and embed integration templates called Flows. Your users can browse these Flows inside your app through our the Embedded Marketplace. You build flows between your app and up to 300+ other apps. Your users get a fully native integration experience within your product. Their data moves seamlessly between their apps.
+
+If you're building agents, you can use individual Integry App Actions called Functions. We provide several popular agent framework support.&#x20;
+
+We provide managed authentication for Flows and Functions, including setup UI, credentials lifecycle management and more.
+
+
 
 Here are the key concepts that you need to know to use Integry.
 

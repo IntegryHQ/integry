@@ -4,33 +4,37 @@ icon: right-from-bracket
 
 # Sync data FROM another app to your app
 
-A flow moves data from one app to another. It is comprised of one or more blocks that run and execute steps when triggered. Flows can sync data from another app to your app, to another app from your app, or both.
+A Flow moves data from one app to another. A Flow can have one or more Triggers that execute steps when run. Flows can sync data from or to your app from another app.
 
-In this quick tutorial, we will build and run a flow that sends every new subscriber in a Mailchimp audience to an API endpoint (which could be of your app). To make things interesting, you will get to map custom fields in your Mailchimp account to fields of the API endpoint.
+In this quick tutorial, we will build and run a flow that sends every new subscriber in a Mailchimp audience to your API endpoint.&#x20;
 
-Note: You will need to login to a Mailchimp account -- sign up for a [free trial](https://login.mailchimp.com/signup/?plan=free_monthly_plan_v0\&subscribers=500) (if you don't have one).
+To make things interesting, you will get to map custom fields in your Mailchimp account to fields of the API endpoint.
+
+{% hint style="info" %}
+**Note:** You will need to login to a Mailchimp account, sign up for a [free trial](https://login.mailchimp.com/signup/?plan=free_monthly_plan_v0\&subscribers=500)
+{% endhint %}
 
 #### Create a flow <a href="#h_01hev188pb696nwg83zdnc0e1n" id="h_01hev188pb696nwg83zdnc0e1n"></a>
 
-1. Click Create a Flow
-2.  Select a trigger for the block. In this example, we will select "Event in another app..." > "Subscriber Created" in Mailchimp.\
+1. Navigate to Flows and click [Create a Flow](https://app.integry.io/platform/flow/create) button
+2.  Select the trigger: "Subscriber Created" in Mailchimp.\
 
 
     <figure><img src="../../.gitbook/assets/Screenshot 2024-10-27 at 8.21.35 PM.png" alt=""><figcaption></figcaption></figure>
-3.  Click "Add a step" and select "HTTP Call".
+3.  Click "Add a step" and select "HTTP Call". We will use this to call your API with the Mailchimp Subscriber data. If you don't have an API, Integr can write to your database, or Integry's own local store and expose an API.
 
 
 
     <figure><img src="../../.gitbook/assets/Screenshot 2024-10-27 at 8.22.21 PM.png" alt=""><figcaption></figcaption></figure>
-4. Configure the HTTP Call. In this example, we will use [webhook.site](https://webhook.site/) to demonstrate.
-   1.  Click "Copy" to copy the unique URL from webhook.site.\
+4. Configure the HTTP Call: in this example, we will use [webhook.site](https://webhook.site/) as a sample API endpoint
+   1.  On webhook.site: Click "Copy" to copy the unique URL\
 
 
        <figure><img src="../../.gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure>
-   2.  Set the method HTTP call method to POST, and paste the URL.&#x20;
+   2.  Back in Integry's HTTP Call: Set the method HTTP call method to POST, and paste the URL.&#x20;
 
        <figure><img src="../../.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
-   3. Switch to the "Body" tab.
+   3. Switch to the "Body" tab of the HTTP call
    4. Define the JSON payload. In this example, we will send three fields to the API endpoint.
       1. Paste this JSON in the body:&#x20;
          * ```json
@@ -41,10 +45,10 @@ Note: You will need to login to a Mailchimp account -- sign up for a [free trial
            }
            ```
       2. Map the email field from the trigger to the body.
-         1.  Place your cursor in between the "" you just added, and click +.&#x20;
+         1.  Place your cursor in between the "" you just added, and click +. The mapping menu will popup.&#x20;
 
              <figure><img src="../../.gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
-         2. Click "Subscriber Created".
+         2. Click "Subscriber Created" under the Subscriber Created (Block)
          3.  Click the ">" next to "Out" to access the output.&#x20;
 
              <figure><img src="../../.gitbook/assets/image (29).png" alt=""><figcaption></figcaption></figure>

@@ -5,7 +5,7 @@
 
 ## Getting Started
 
-* [Key Concepts](getting-started/key-concepts.md)
+* [Getting Started](getting-started/key-concepts.md)
 
 ## Apps
 
@@ -101,6 +101,23 @@
   * [Zoho Mail](apps/supported-apps/zoho-mail.md)
   * [Zoom](apps/supported-apps/zoom.md)
 
+## Flows
+
+* [Overview](flows/overview.md)
+* [Flow Tutorials](flows/markdown/README.md)
+  * [Sync data TO another app from your app](flows/markdown/sync-data-to-another-app-from-your-app.md)
+  * [Sync data FROM another app to your app](flows/markdown/sync-data-from-another-app-to-your-app.md)
+  * [Create a two-way flow](flows/markdown/create-a-two-way-flow.md)
+* [Build a Flow](flows/editor.md)
+* [Trigger a Flow](flows/trigger-a-flow/README.md)
+  * [Multiple Triggers in a Flow](flows/trigger-a-flow/multiple-triggers-in-a-flow.md)
+* [Steps in a Flow](flows/steps-in-a-flow.md)
+* [Access Control and Testing](flows/access-control-and-testing.md)
+* [Flow FAQs](flows/flow-faqs.md)
+* [Solving the Problem of Order in Multiple Updates](flows/solving-the-problem-of-order-in-multiple-updates.md)
+* [Integrations](flows/integrations/README.md)
+  * [Runs](flows/integrations/runs.md)
+
 ## Functions
 
 * [Overview](functions/overview.md)
@@ -118,23 +135,6 @@
   * [Smolagent](functions/agent-frameworks/smolagent.md)
   * [LiteLLM](functions/agent-frameworks/litellm.md)
   * [Mistral AI](functions/agent-frameworks/mistral-ai.md)
-
-## Flows
-
-* [Overview](flows/overview.md)
-* [Flow Tutorials](flows/markdown/README.md)
-  * [Sync data TO another app from your app](flows/markdown/sync-data-to-another-app-from-your-app.md)
-  * [Sync data FROM another app to your app](flows/markdown/sync-data-from-another-app-to-your-app.md)
-  * [Create a two-way flow](flows/markdown/create-a-two-way-flow.md)
-* [Build a Flow](flows/editor.md)
-* [Trigger a Flow](flows/trigger-a-flow/README.md)
-  * [Multiple Triggers in a Flow](flows/trigger-a-flow/multiple-triggers-in-a-flow.md)
-* [Steps in a Flow](flows/steps-in-a-flow.md)
-* [Access Control and Testing](flows/access-control-and-testing.md)
-* [Flow FAQs](flows/flow-faqs.md)
-* [Solving the Problem of Order in Multiple Updates](flows/solving-the-problem-of-order-in-multiple-updates.md)
-* [Integrations](flows/integrations/README.md)
-  * [Runs](flows/integrations/runs.md)
 
 ## Embedded UI
 
