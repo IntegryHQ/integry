@@ -151,7 +151,7 @@ Integry supports [many apps](https://www.integry.ai/apps) like Slack, Hubspot, o
 
 ### Show apps
 
-`showApps(renderMode, containerID, layout, fetchAll,` useLoadMoreButton`)`
+`showApps(renderMode, containerID, layout, fetchAll``, useLoadMoreButton)`
 
 Renders a marketplace-style listing of apps. You can customize the [render mode, layouts and styling](../../embedded-ui/render-modes-layouts-and-styling.md).
 
