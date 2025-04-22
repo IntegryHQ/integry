@@ -173,3 +173,7 @@
 * [How is usage measured?](users-and-billing/how-is-usage-measured.md)
 * [What is an account?](users-and-billing/what-is-an-account.md)
 * [What is an integration?](users-and-billing/what-is-an-integration.md)
+
+## Objects
+
+* [Object Schema](objects/object-schema.md)
