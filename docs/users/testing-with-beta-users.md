@@ -4,7 +4,7 @@ You can set any user in your workspace to be a **Beta user**. It will automatica
 
 Here’s how you do it:
 
-1. Go to [Users](https://app.integry.io/wapp/view/users/)
+1. Go to [Users](https://app.integry.io/platform/users/)
 2. Search for a user&#x20;
 3. Open the ... menu
 4. Turn on 'Beta User'

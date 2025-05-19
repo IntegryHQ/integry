@@ -14,20 +14,20 @@ If you'd like, you can also [create a flow that syncs data FROM another app](syn
 
 It will only take 5 minutes. Let's begin.
 
-### Create a flow <a href="#h_01hev188pb696nwg83zdnc0e1n" id="h_01hev188pb696nwg83zdnc0e1n"></a>
+### Build a Flow <a href="#h_01hev188pb696nwg83zdnc0e1n" id="h_01hev188pb696nwg83zdnc0e1n"></a>
 
-1. Click Create a Flow
-2.  Select a trigger for the block. In this example, we will select "Webhook" by Integry.\
+1. Click [Create a Flow](https://app.integry.io/platform/flow/create)
+2.  Select a Trigger. In this example, we will select "Webhook" by Integry. This will let us invoke this Flow by calling the Webhook URL, more on that later.\
     \
 
 
     <figure><img src="../../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
-3.  Select your app in the App field, paste a sample json of the object from your app that you will be sending to Integry. Lastly, give this json payload a name.\
+3.  Select your app in the App field. Paste a sample json of the object that we will push from your app to Integry. Lastly, give this json payload a name.\
     \
 
 
     <figure><img src="../../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
-4.  Add a step to perform an action in another app using the user's auth. In this example, we will select "Add Subscriber" in Mailchimp.\
+4.  Add a step to perform an action in another app. In this example, we will select "Add Subscriber" in Mailchimp.\
     \
 
 

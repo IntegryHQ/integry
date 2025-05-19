@@ -18,13 +18,13 @@ https://api.integry.io
 
 {% tabs %}
 {% tab title="Node.js" %}
-```
+```bash
 npm install --save integry
 ```
 {% endtab %}
 
 {% tab title="Python" %}
-```
+```bash
 pip install integry
 ```
 {% endtab %}
@@ -32,9 +32,9 @@ pip install integry
 
 ### Authentication
 
-The Integry API requires an `App-Key` , `User-ID` and a hash of `App-Secret` and `User-ID` in the request headers to authenticate requests.&#x20;
+The Integry API requires an `App-Key` , `User-ID` and a hash of `App-Secret` and `User-ID` in the request headers to authenticate requests.
 
-You can view and copy your `App-Key` and `App-Secret` from [the Integry app](https://app.integry.io/wapp/settings/embed/).
+You can view and copy your `App-Key` and `App-Secret` from [the Integry app](https://app.integry.io/platform/workspace/security/).
 
 `User-ID` is a unique string identifier for a user in your app. Function Calls and Integrations are associated to a user ID.
 
@@ -91,7 +91,7 @@ $hash = hash_hmac('sha256', $userId, $appSecret);
 {% tabs %}
 {% tab title="cURL" %}
 {% code lineNumbers="true" %}
-```javascript
+```bash
 curl -X POST "https://api.integry.io/functions/slack-post-message/call/"
 -H 'Content-Type: application/json'
 -H 'App-Key: 002d4f23-778a-11e7-bf2a-42010a8002c7'
@@ -160,12 +160,12 @@ await integry.functions.call(
 
 List all apps available in Integry. If you need more, please reach out!
 
-#### Sample Call&#x20;
+#### Sample Call
 
 {% tabs %}
 {% tab title="cURL" %}
 {% code lineNumbers="true" %}
-```javascript
+```bash
 curl -X POST "https://api.integry.io/apps/list/"
 -H 'Content-Type: application/json'
 -H 'App-Key: 002d4f23-778a-11e7-bf2a-42010a8002c7'
@@ -273,18 +273,18 @@ Include as a query param to only list apps that the user has connected.
 
 Returns an `object[]` of `apps` that match the criteria, and an optional `_cursor` to paginate over the results.
 
-### Get an app
+### Get an app with the user's connected accounts
 
 <mark style="color:purple;">`POST`</mark> `/apps/:app_name/get`
 
-Get the details of an individual app by passing `app_name` as a path variable.
+Get the details of an individual app and user's connected accounts with the app by passing `app_name` as a path variable.
 
-#### Sample Call&#x20;
+#### Sample Call
 
 {% tabs %}
 {% tab title="cURL" %}
 {% code lineNumbers="true" %}
-```javascript
+```bash
 curl -X POST "https://api.integry.io/apps/slack/get/"
 -H 'Content-Type: application/json'
 -H 'App-Key: 002d4f23-778a-11e7-bf2a-42010a8002c7'
@@ -364,12 +364,12 @@ Returns the app object along with an `object[]` of `connected_accounts` of the u
 
 List all functions available in Integry. If you need more, make a [passthrough request](../apps/passthrough-requests.md) or reach out!
 
-#### Sample Call&#x20;
+#### Sample Call
 
 {% tabs %}
 {% tab title="cURL" %}
 {% code lineNumbers="true" %}
-```javascript
+```bash
 curl -X POST "https://api.integry.io/functions/list/?app=hubspot&type=ACTION"
 -H 'Content-Type: application/json'
 -H 'App-Key: 002d4f23-778a-11e7-bf2a-42010a8002c7'
@@ -592,7 +592,7 @@ await integry.functions.predict(
 
 <details>
 
-<summary><code>prompt</code> string  <mark style="color:red;">Required</mark></summary>
+<summary><code>prompt</code> string <mark style="color:red;">Required</mark></summary>
 
 Prompt to use to predict function (and arguments).
 
@@ -747,7 +747,7 @@ Include as a query param to get info for rendering the function UI. Allowed valu
 
 Get the JSON schema of an individual function by passing function name as a path variable.
 
-#### Sample Call&#x20;
+#### Sample Call
 
 {% tabs %}
 {% tab title="cURL" %}
@@ -925,7 +925,7 @@ If you include a `prompt`, Integry AI will predict the arguments and list them i
 
 If you include variables, Integry will auto-map them to the parameters and include reference tags (eg. `{first_name}`) in the values in the `arguments` object.
 
-If you include both a `prompt` and `_variables`, Integry will predict the arguments using both the prompt and variables, adding tags where appropriate (eg. `"message": "{first_name} {last_name} just signed up!"`)&#x20;
+If you include both a `prompt` and `_variables`, Integry will predict the arguments using both the prompt and variables, adding tags where appropriate (eg. `"message": "{first_name} {last_name} just signed up!"`)
 
 ### Call a function
 
@@ -942,7 +942,7 @@ Integry will not execute the function if the user has not connected an account, 
 {% tabs %}
 {% tab title="cURL" %}
 {% code lineNumbers="true" %}
-```javascript
+```bash
 curl -X POST "https://api.integry.io/functions/slack-post-message/call/"
 -H 'Content-Type: application/json'
 -H 'App-Key: 002d4f23-778a-11e7-bf2a-42010a8002c7'
@@ -982,18 +982,16 @@ integry.functions.call("slack-post-message", {
 {% tab title="Python" %}
 {% code lineNumbers="true" %}
 ```python
-await integry.functions.call("slack-post-message", {
-     user_id: "123456",
-     connected_account_id: 1234,
-     arguments: {
-         "channel": "random",
-         "text": "{first_name} {last_name} just signed up!"
-     },
-     variables: {
-        "first_name": "John",
-        "last_name": "Doe"
-     }
-});
+await integry.functions.call(
+    "slack-post-message",
+    user_id="123456",
+    connected_account_id=1234,
+    arguments={
+        "channel": "random",
+        "text": "{first_name} {last_name} just signed up!",
+    },
+    variables={"first_name": "John", "last_name": "Doe"},
+)
 ```
 {% endcode %}
 {% endtab %}
@@ -1003,7 +1001,7 @@ await integry.functions.call("slack-post-message", {
 
 <details>
 
-<summary><code>&#x3C;function_parameters></code> any data type  <mark style="color:red;">Required, if any</mark></summary>
+<summary><code>&#x3C;function_parameters></code> any data type <mark style="color:red;">Required, if any</mark></summary>
 
 In most cases, you simply need to pass the parameters of the function itself when calling a function. For instance, in the sample above, `channel` and `text` are required when calling `slack-post-message`.
 
@@ -1021,7 +1019,7 @@ Include if the values of any of the function parameters include variable referen
 
 <details>
 
-<summary><code>_cursor</code> string, number or object </summary>
+<summary><code>_cursor</code> string, number or object</summary>
 
 Include if the function returns paginated data. You will get the `_cursor` in the response of the first call if there are additional pages.
 
@@ -1121,5 +1119,5 @@ If Integry does not execute the function, it will respond with a `400 Bad Reques
 * `error_details[]`: Detailed errors for individual fields (if applicable).
 
 {% hint style="info" %}
-In rare cases where Integry is unable to determine if there are more pages, it will respond with a `_cursor` as if there is more data to be fetched. However, your subsequent call will return an empty `output[]`  and `null` `_cursor`  which means there are no more pages.
+In rare cases where Integry is unable to determine if there are more pages, it will respond with a `_cursor` as if there is more data to be fetched. However, your subsequent call will return an empty `output[]` and `null` `_cursor` which means there are no more pages.
 {% endhint %}

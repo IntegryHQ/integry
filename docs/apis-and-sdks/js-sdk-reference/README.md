@@ -24,9 +24,9 @@ Or include it via a script tag:
 
 ### Authentication
 
-The Integry JS SDK requires an `App-Key` and a hash of `App-Secret` and `User-ID` to authenticate calls.&#x20;
+The Integry JS SDK requires an `App-Key` and a hash of `App-Secret` and `User-ID` to authenticate calls.
 
-You can view and copy your `App-Key` and `App-Secret` from [the Integry app](https://app.integry.io/wapp/settings/embed/).
+You can view and copy your `App-Key` and `App-Secret` from [the Integry app](https://app.integry.io/platform/workspace/security/).
 
 `User-ID` is a unique string identifier for a user in your app. Function Calls and Integrations are associated to a user ID.
 
@@ -151,7 +151,7 @@ Integry supports [many apps](https://www.integry.ai/apps) like Slack, Hubspot, o
 
 ### Show apps
 
-`showApps(renderMode, containerID, layout)`
+`showApps(renderMode, containerID, layout, fetchAll``, useLoadMoreButton)`
 
 Renders a marketplace-style listing of apps. You can customize the [render mode, layouts and styling](../../embedded-ui/render-modes-layouts-and-styling.md).
 
@@ -172,7 +172,7 @@ integry.showApps(
 
 #### Method parameters
 
-<table><thead><tr><th width="162">Name</th><th width="92">Type</th><th width="320">Description</th><th>Required</th></tr></thead><tbody><tr><td><code>renderMode</code></td><td>string</td><td>Specifies the mode in which the marketplace will be rendered. Allowed values: <code>IntegryJS.RenderModes.MODAL</code>, <code>IntegryJS.RenderModes.INLINE</code>. Defaults to <code>MODAL</code> if not specified.</td><td>false</td></tr><tr><td><code>containerId</code></td><td>string</td><td>The ID of the HTML container in which the marketplace content will be rendered. </td><td>true if <code>renderMode=IntegryJS.RenderModes.INLINE</code></td></tr><tr><td><code>layout</code></td><td>string</td><td>Specifies the layout. Allowed values: <code>IntegryJS.Layouts.WIDE</code>, <code>IntegryJS.Layouts.NARROW</code>. Defaults to <code>WIDE</code> if not specified.</td><td>false</td></tr></tbody></table>
+<table><thead><tr><th width="182.77734375">Name</th><th width="92">Type</th><th width="320">Description</th><th>Required</th></tr></thead><tbody><tr><td><code>renderMode</code></td><td>string</td><td>Specifies the mode in which the marketplace will be rendered. Allowed values: <code>IntegryJS.RenderModes.MODAL</code>, <code>IntegryJS.RenderModes.INLINE</code>. Defaults to <code>MODAL</code> if not specified.</td><td>false</td></tr><tr><td><code>containerId</code></td><td>string</td><td>The ID of the HTML container in which the marketplace content will be rendered.</td><td>true if <code>renderMode=IntegryJS.RenderModes.INLINE</code></td></tr><tr><td><code>layout</code></td><td>string</td><td>Specifies the layout. Allowed values: <code>IntegryJS.Layouts.WIDE</code>, <code>IntegryJS.Layouts.NARROW</code>. Defaults to <code>WIDE</code> if not specified.</td><td>false</td></tr><tr><td><code>fetchAll</code></td><td>boolean</td><td><p></p><p>Determines whether all apps should be fetched at once or retrieved using pagination.</p><ul><li><strong>Default:</strong> <code>false</code> (uses pagination).</li><li><strong>When <code>true</code></strong>, the method fetches all available apps in a single request instead of making paginated API calls.</li><li><strong>Use case:</strong> Set <code>fetchAll: true</code> if you need to load all the apps at once.</li></ul></td><td>false</td></tr><tr><td><code>useLoadMoreButton</code></td><td>boolean</td><td>If set to <code>true</code>, the app list will disable infinite scroll and instead display a <strong>"Load More"</strong> button at the bottom. Users will need to manually click this button to fetch additional apps.<br>When <code>false</code>, more results will be automatically loaded as the user scrolls to the end of the list.</td><td>false</td></tr></tbody></table>
 
 #### Emits events
 
@@ -187,6 +187,7 @@ Fired when the user successfully connects an app. It includes the app details al
     "title": "Pipedrive",
     "icon_url": "https://storage.googleapis.com/app-services-prod--bucket/public/c07f082e-33d2-499f-b67a-d98722ab367b.png",
     "docs_url": "",
+    "connected_account_id": "1234",
     "connected_accounts": [
         {
             "id": 247714,
@@ -208,6 +209,7 @@ Fired when the user disconnects an app. It includes the app details along with a
     "title": "Pipedrive",
     "icon_url": "https://storage.googleapis.com/app-services-prod--bucket/public/c07f082e-33d2-499f-b67a-d98722ab367b.png",
     "docs_url": "",
+    "connected_account_id": "1234",
     "connected_accounts": []
 }
 ```
@@ -234,7 +236,7 @@ integry.showApp(
 
 #### Method parameters
 
-<table><thead><tr><th width="162">Name</th><th width="92">Type</th><th width="320">Description</th><th>Required</th></tr></thead><tbody><tr><td><code>appName</code></td><td>string</td><td>Name of the app to show. Eg. Hubspot</td><td>true</td></tr><tr><td><code>renderMode</code></td><td>string</td><td>Specifies the mode in which the marketplace will be rendered. Allowed values: <code>IntegryJS.RenderModes.MODAL</code>, <code>IntegryJS.RenderModes.INLINE</code>. Defaults to <code>MODAL</code> if not specified.</td><td>false</td></tr><tr><td><code>containerId</code></td><td>string</td><td>The ID of the HTML container in which the marketplace content will be rendered. </td><td>true if <code>renderMode=IntegryJS.RenderModes.INLINE</code></td></tr><tr><td><code>layout</code></td><td>string</td><td>Specifies the layout. Allowed values: <code>IntegryJS.Layouts.WIDE</code>, <code>IntegryJS.Layouts.NARROW</code>. Defaults to <code>WIDE</code> if not specified.</td><td>false</td></tr></tbody></table>
+<table><thead><tr><th width="162">Name</th><th width="92">Type</th><th width="320">Description</th><th>Required</th></tr></thead><tbody><tr><td><code>appName</code></td><td>string</td><td>Name of the app to show. Eg. Hubspot</td><td>true</td></tr><tr><td><code>renderMode</code></td><td>string</td><td>Specifies the mode in which the marketplace will be rendered. Allowed values: <code>IntegryJS.RenderModes.MODAL</code>, <code>IntegryJS.RenderModes.INLINE</code>. Defaults to <code>MODAL</code> if not specified.</td><td>false</td></tr><tr><td><code>containerId</code></td><td>string</td><td>The ID of the HTML container in which the marketplace content will be rendered.</td><td>true if <code>renderMode=IntegryJS.RenderModes.INLINE</code></td></tr><tr><td><code>layout</code></td><td>string</td><td>Specifies the layout. Allowed values: <code>IntegryJS.Layouts.WIDE</code>, <code>IntegryJS.Layouts.NARROW</code>. Defaults to <code>WIDE</code> if not specified.</td><td>false</td></tr></tbody></table>
 
 #### Emits events
 
@@ -249,6 +251,7 @@ Fired when the user successfully connects an app. It includes the app details al
     "title": "Pipedrive",
     "icon_url": "https://storage.googleapis.com/app-services-prod--bucket/public/c07f082e-33d2-499f-b67a-d98722ab367b.png",
     "docs_url": "",
+    "connected_account_id": "1234",
     "connected_accounts": [
         {
             "id": 247714,
@@ -270,6 +273,7 @@ Fired when the user disconnects an app. It includes the app details along with a
     "title": "Pipedrive",
     "icon_url": "https://storage.googleapis.com/app-services-prod--bucket/public/c07f082e-33d2-499f-b67a-d98722ab367b.png",
     "docs_url": "",
+    "connected_account_id": "1234",
     "connected_accounts": []
 }
 ```
@@ -390,7 +394,7 @@ Renders a list of functions. You can filter by app. Coming soon!
 
 ### Show a function
 
-`showFunction(functionName, params, connectedAccountId)`
+`showFunction(functionName, options)`
 
 Shows a function's parameters (with pre-filled values, if provided). The user can provide/modify the values. Take the output of this method to [call the function](./#call-a-function).
 
@@ -402,7 +406,9 @@ const params = {
   message: "Hello, team!"
 };
 
-integry.showFunctionUI("slack-post-message", params, "abc123").then((result) => {
+integry.showFunctionUI("slack-post-message", {
+  params: params
+}).then((result) => {
   console.log("Function parameters filled-in by the user:", result);
 }).catch((error) => {
   console.error("Failed to load function UI:", error);
@@ -411,7 +417,15 @@ integry.showFunctionUI("slack-post-message", params, "abc123").then((result) => 
 
 #### Method parameters
 
-<table><thead><tr><th width="140">Name</th><th width="83">Type</th><th width="346">Description</th><th width="120">Example</th><th>Required</th></tr></thead><tbody><tr><td><code>functionName</code></td><td>string</td><td>The name of the function to render.</td><td>slack-post-message</td><td>true</td></tr><tr><td><code>params</code></td><td>object</td><td>An object containing the function parameters.</td><td>{"limit":5}</td><td>true</td></tr><tr><td><code>connectedAccountId</code></td><td>string</td><td>The connected account to use for executing the action. Only use if the user has connected multiple accounts.</td><td>12456</td><td>false</td></tr></tbody></table>
+<table><thead><tr><th width="140">Name</th><th width="83">Type</th><th width="381">Description</th><th width="156">Example</th><th>Required</th></tr></thead><tbody><tr><td><code>functionName</code></td><td>string</td><td>The name of the function to render.</td><td>slack-post-message</td><td>true</td></tr><tr><td><code>options</code></td><td>object</td><td>An object containing the function options.</td><td></td><td>false</td></tr><tr><td><code>options.params</code></td><td>object</td><td>An object containing the function parameters.</td><td><pre><code>{
+  channel: "general",
+  message: "Hello, team!"
+}
+</code></pre></td><td>false</td></tr><tr><td><code>options.payload</code></td><td>object</td><td>An object containing data from your app that users can map to function fields.</td><td><pre><code>{
+  first_name: "John",
+  last_name: "Doe"
+}
+</code></pre></td><td>false</td></tr><tr><td><code>options.autoMapPayload</code></td><td>boolean</td><td>An option to predict arguments by using the payload you pass.</td><td>false</td><td>false</td></tr><tr><td><code>options.connectedAccountId</code></td><td>string</td><td>An optional parameter to pass connected account id to use to make function calls.</td><td>12345</td><td>false</td></tr></tbody></table>
 
 #### Returns
 
@@ -431,7 +445,7 @@ Use it as `params` to [invokeFunction()](./#invokefunction-functionname-params-c
 
 Invokes the specified function of an app with the provided parameters. Integry will automatically include your user's authentication credentials when making the onwards API call.
 
-Integry will execute the function if the user has already connected their account for the function app, and all required parameters (if any) are provided in `params`. These function calls will show in the Function Calls log in [the Integry app](https://app.integry.io/wapp/function-calls).
+Integry will execute the function if the user has already connected their account for the function app, and all required parameters (if any) are provided in `params`. These function calls will show in the Function Calls log in [the Integry app](https://app.integry.io/platform/functions/calls-log).
 
 Integry will not execute the function if the user has not connected an account, or the parameters passed are invalid. These function calls will not show in the Function Calls log.
 
@@ -721,7 +735,7 @@ Sample responses for `pipedrive-add-a-person` and `pipedrive-get-all-persons`:
 {% endtabs %}
 
 {% hint style="info" %}
-In rare cases where Integry is unable to determine if there are more pages, it will respond with a `next_page` cursor. Your subsequent call will return an empty `output[]`  and `next_page` cursor since there are no more pages.
+In rare cases where Integry is unable to determine if there are more pages, it will respond with a `next_page` cursor. Your subsequent call will return an empty `output[]` and `next_page` cursor since there are no more pages.
 {% endhint %}
 
 ### Get a function

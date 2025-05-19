@@ -42,7 +42,7 @@ Sometimes when building your flows, you need to add custom logic, formatting or 
 
 You can add custom code at any point in your flow. The code step supports Python 3.12 with additional languages planned.&#x20;
 
-<figure><img src="../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (10) (1).png" alt=""><figcaption></figcaption></figure>
 
 1. Your code must be enclosed in a main() function&#x20;
 2. You have access to the global steps dictionary of all the steps in the flow including their in variables and out variables
@@ -63,27 +63,27 @@ You can see that we're referring to steps global dictionary to access salesforce
 
 You can insert fields using the insert field menu&#x20;
 
-<figure><img src="../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure>
 
 Once you have your code written out, you can test it by hitting the, you guessed it, the Test button. You'll see the exact output below. The structure of the output is important since it will be made available in the field insert menu for any subsequent step.
 
 Here's the output of code we tested:
 
-<figure><img src="../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
 
 In the subsequent steps, the field insert menu for the code step has:
 
-<figure><img src="../.gitbook/assets/image (13).png" alt="" width="312"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (13) (1).png" alt="" width="312"><figcaption></figcaption></figure>
 
 ### Outputting Different Data Types <a href="#h_01hqdwfste8a4jnbhrjk7w1mb9" id="h_01hqdwfste8a4jnbhrjk7w1mb9"></a>
 
 If you return a dictionary, it will be available as-is in the output:
 
-<figure><img src="../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (14) (1).png" alt=""><figcaption></figcaption></figure>
 
 Here's the field insert menu:
 
-<figure><img src="../.gitbook/assets/image (15).png" alt="" width="289"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (15) (1).png" alt="" width="289"><figcaption></figcaption></figure>
 
 You can also output arrays and more complex nested dictionaries
 
@@ -109,7 +109,7 @@ The conditions are evaluated at run-time and the steps in the appropriate group 
 
 For instance, if the value of a "Type" field in the trigger payload from another app equals "Created", run the Create action in Acme. Otherwise, run the Update action in Acme.
 
-<figure><img src="../.gitbook/assets/image (16).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (16) (1).png" alt="" width="375"><figcaption></figcaption></figure>
 
 ### IF
 
@@ -117,7 +117,7 @@ An IF condition can have one or more condition statements that each have three p
 
 For instance, this checks if the "type" field value is "Created" or "created".
 
-<figure><img src="../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (17) (1).png" alt=""><figcaption></figcaption></figure>
 
 The steps in the IF condition group will run if, at run-time, the entire expression is true.
 
@@ -241,7 +241,7 @@ A Do While Loop allows you to execute a group of steps in a trigger block, and t
 
 For instance, get all records by making repeated [HTTP Calls](steps-in-a-flow.md#h_01hs98kaqg1m42c0azwjv3wxja) to an endpoint that returns 100 records per page, until there are no more records available, loop over the records in a page (using a For Loop), and create customers in Acme.
 
-<figure><img src="../.gitbook/assets/image (18).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (18) (1).png" alt="" width="375"><figcaption></figcaption></figure>
 
 ### Do <a href="#h_01hs99ym4a2ybvznh89zrbwzad" id="h_01hs99ym4a2ybvznh89zrbwzad"></a>
 

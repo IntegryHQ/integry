@@ -12,7 +12,7 @@ Before you proceed, please [sign up](https://app.integry.io/accounts/register/v3
 
 {% stepper %}
 {% step %}
-Go to **Apps** and click the **Marketplace** button in the Integry app.
+Go to **Apps** and click the **Access as a User** button in the Integry app.
 
 You are accessing the marketplace as a user of your app. Later, once your users have connected apps (and setup integrations), you can impersonate them here if you need to debug and/or fix.
 {% endstep %}
@@ -28,9 +28,7 @@ You can also connect a different app if you don't use Slack.
 
 {% stepper %}
 {% step %}
-Go **Function Calls** and click **Public Functions**.&#x20;
-
-You can also pick a different app if you don't use Slack.
+Go to **Functions**.&#x20;
 {% endstep %}
 
 {% step %}
@@ -78,7 +76,7 @@ To fix that, toggle to the request **Body** tab, click Beautify to make it easy 
 {% endstep %}
 {% endstepper %}
 
-Voila! If the response from Integry looks like the sample below, open Slack to see the message you just posted by calling an Integry Function. You can also [see the call you just made](../functions/viewing-function-calls.md) in the Function Calls tab in the Integry app.
+Voila! If the response from Integry looks like the sample below, open Slack to see the message you just posted by calling an Integry Function. You can also [see the call you just made](viewing-function-calls.md) in the Function Calls tab in the Integry app.
 
 ```json
 {

@@ -12,7 +12,7 @@ If you want to do anything else, you can call the **Passthrough Request** functi
 
 <mark style="color:green;">`POST`</mark> `/<app_name>-passthrough-request`
 
-Integry will execute the function if the user has already connected their account for the function app, and the `method` and `URL` parameters are provided in the body. These function calls will show in the Function Calls log in [the Integry app](https://app.integry.io/wapp/function-calls).
+Integry will execute the function if the user has already connected their account for the function app, and the `method` and `URL` parameters are provided in the body. These function calls will show in the Function Calls log in [the Integry app](https://app.integry.io/platform/functions/calls-log).
 
 Integry will not execute the function if the user has not connected an account, or the parameters passed are invalid. These function calls will not show in the Function Calls log.
 
@@ -174,7 +174,7 @@ If Integry does not execute the function, it will respond with a `400 Bad Reques
 
 `invokeFunction(<app_name>-passthrough-request, params, connectedAccountId)`
 
-Integry will execute the function if the user has already connected their account for the function app, and the `method` and `URL` parameters are provided in the `params` object. These function calls will show in the Function Calls log in [the Integry app](https://app.integry.io/wapp/function-calls).
+Integry will execute the function if the user has already connected their account for the function app, and the `method` and `URL` parameters are provided in the `params` object. These function calls will show in the Function Calls log in [the Integry app](https://app.integry.io/platform/functions/calls-log).
 
 Integry will not execute the function if the user has not connected an account, or the parameters passed are invalid. These function calls will not show in the Function Calls log.
 

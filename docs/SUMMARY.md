@@ -5,9 +5,7 @@
 
 ## Getting Started
 
-* [Key Concepts](getting-started/key-concepts.md)
-* [Try Functions in 60 seconds](getting-started/try-functions-in-60-seconds.md)
-* [Quickstart for AI](getting-started/quickstart-for-ai.md)
+* [Getting Started](getting-started/key-concepts.md)
 
 ## Apps
 
@@ -103,13 +101,6 @@
   * [Zoho Mail](apps/supported-apps/zoho-mail.md)
   * [Zoom](apps/supported-apps/zoom.md)
 
-## Functions
-
-* [Overview](functions/overview.md)
-* [Access Control and Testing](functions/access-control-and-testing.md)
-* [Viewing Function Calls](functions/viewing-function-calls.md)
-* [Source Functions](functions/source-functions.md)
-
 ## Flows
 
 * [Overview](flows/overview.md)
@@ -124,12 +115,32 @@
 * [Access Control and Testing](flows/access-control-and-testing.md)
 * [Flow FAQs](flows/flow-faqs.md)
 * [Solving the Problem of Order in Multiple Updates](flows/solving-the-problem-of-order-in-multiple-updates.md)
+* [Integrations](flows/integrations/README.md)
+  * [Runs](flows/integrations/runs.md)
+
+## Functions
+
+* [Overview](functions/overview.md)
+* [Try Functions in 60 seconds](functions/try-functions-in-60-seconds.md)
+* [Quickstart for AI](functions/quickstart-for-ai.md)
+* [Access Control and Testing](functions/access-control-and-testing.md)
+* [Viewing Function Calls](functions/viewing-function-calls.md)
+* [Source Functions](functions/source-functions.md)
+* [Agent Frameworks](functions/agent-frameworks/README.md)
+  * [LangChain/LangGraph](functions/agent-frameworks/langchain-langgraph.md)
+  * [CrewAI](functions/agent-frameworks/crewai.md)
+  * [AutoGen](functions/agent-frameworks/autogen.md)
+  * [LlamaIndex](functions/agent-frameworks/llamaindex.md)
+  * [Haystack](functions/agent-frameworks/haystack.md)
+  * [Smolagent](functions/agent-frameworks/smolagent.md)
+  * [LiteLLM](functions/agent-frameworks/litellm.md)
+  * [Mistral AI](functions/agent-frameworks/mistral-ai.md)
 
 ## Embedded UI
 
 * [Overview](embedded-ui/overview.md)
 * [Embed Integry Apps Marketplace](embedded-ui/embed-integry-apps-marketplace.md)
-* [Add Integry Apps to an Existing  Marketplace](embedded-ui/add-integry-apps-to-an-existing-marketplace.md)
+* [Add Integry Apps to an Existing Marketplace](embedded-ui/add-integry-apps-to-an-existing-marketplace.md)
 * [Embed Flows (Coming soon)](embedded-ui/embed-flows-coming-soon.md)
 * [Embed Functions (Coming soon)](embedded-ui/embed-functions-coming-soon.md)
 * [Render modes, layouts and styling](embedded-ui/render-modes-layouts-and-styling.md)
@@ -162,3 +173,7 @@
 * [How is usage measured?](users-and-billing/how-is-usage-measured.md)
 * [What is an account?](users-and-billing/what-is-an-account.md)
 * [What is an integration?](users-and-billing/what-is-an-integration.md)
+
+## Objects
+
+* [Object Schema](objects/object-schema.md)

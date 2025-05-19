@@ -1,8 +1,8 @@
 ---
+icon: arrow-right-arrow-left
 description: >-
   Integry Functions enables you to integrate a vast array of apps into your AI
   applications seamlessly.
-icon: arrow-right-arrow-left
 ---
 
 # Overview
@@ -19,7 +19,7 @@ Integry Functions lets you use Integry's extensive library of app functions as t
 * Invoke functions directly (headlessly i.e. without a UI)&#x20;
 * Predict and populate functions based on user input.
 
-[Sign up now](https://app.integry.io/accounts/register/v3/signup/?product=functions) for a free trial and follow [Quickstart for AI](../getting-started/quickstart-for-ai.md) to get started.
+[Sign up now](https://app.integry.io/accounts/register/v3/signup/?product=functions) for a free trial and follow [Quickstart for AI](quickstart-for-ai.md) to get started.
 
 {% hint style="info" %}
 Integry supports many functions for [200+ apps](https://www.integry.ai/apps). Click the **Marketplace** button in the app to browse the full list of Functions or [use the API](https://integry.gitbook.io/integry-docs/apis-and-sdks/api-reference#list-all-functions).
