@@ -14,7 +14,7 @@ The Integry API is organized around [REST](http://en.wikipedia.org/wiki/Represen
 https://api.integry.io
 ```
 
-### Client Libraries
+### Server Libraries
 
 {% tabs %}
 {% tab title="Node.js" %}
