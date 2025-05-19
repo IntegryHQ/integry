@@ -23,10 +23,27 @@ export class ApiClient {
     if (!this.client) {
       throw new Error("API client is not initialized");
     }
+
     try {
-      return await this.client(config);
+      // Convert headers to query params
+      const headers = config.headers || {};
+      const url = new URL(config.url || "", "https://api.integry.io");
+
+      for (const [key, value] of Object.entries(headers)) {
+        if (typeof value === "string") {
+          url.searchParams.append(key, value);
+        }
+      }
+
+      // Clone config with modified URL
+      const modifiedConfig: AxiosRequestConfig = {
+        ...config,
+        url: url.pathname + url.search, // only path and query
+      };
+
+      return await this.client(modifiedConfig);
     } catch (error: any) {
-      throw new Error(JSON.stringify(error.response.data));
+      throw new Error(JSON.stringify(error.response?.data || error.message));
     }
   }
 }
