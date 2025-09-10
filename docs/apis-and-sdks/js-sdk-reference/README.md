@@ -106,13 +106,9 @@ const integry = new IntegryJS({
 
 The Integry JS SDK now supports setting a **UI language** through the `lang` parameter in the initialization options. This controls the language used for all SDK-rendered UI elements such as buttons, labels, menus, and prompts.
 
-
-
-Usage
+**Usage**
 
 You can pass `lang` alongside `appKey`, `hash`, and `user` when initializing the SDK. See example above.
-
-
 
 **Supported Languages**
 
@@ -125,12 +121,10 @@ Currently, the following languages are available:
 
 If no `lang` is provided, the SDK defaults to **English**.
 
-
-
 **Notes on Translations**
 
 * The `lang` parameter applies only to **SDK UI strings** (e.g., placeholders, error messages, action buttons).
-* Content loaded dynamically from your **backend** (such as integration names, descriptions, or flow data) is **not automatically translated**.
+* Content loaded dynamically from Integry **backend** (such as integration names, descriptions, or flow data) is **not automatically translated**.
 * For backend translations of new flows or content, please reach out to **hello@integry.io**.
 * If you need SDK UI translations in a language other than the supported ones, contact us at **hello@integry.io** to request additional support.
 
