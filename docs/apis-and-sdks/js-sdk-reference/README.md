@@ -120,6 +120,7 @@ Currently, the following languages are available:
 * `es` – Spanish
 * `fr` – French
 * `ja` – Japanese
+* `pt-BR` – Brazilian Portuguese
 
 If no `lang` is provided, the SDK defaults to **English**.
 
