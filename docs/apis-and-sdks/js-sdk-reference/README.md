@@ -177,30 +177,32 @@ integry.connectApp("slack").then((connectedAccountId) => {
 
 Integry supports [many apps](https://www.integry.ai/apps) like Slack, Hubspot, or Jira.
 
-### Show apps
+### Show apps (`options`)
 
-`showApps(renderMode, containerID, layout, fetchAll, useLoadMoreButton)`
+Displays the Integry **Apps Marketplace** inside your application. This method allows your users to browse, connect, and configure apps from your marketplace.
 
-Renders a marketplace-style listing of apps. You can customize the [render mode, layouts and styling](../../embedded-ui/render-modes-layouts-and-styling.md).
+By default, the marketplace is rendered in a modal. You can optionally render it inline within a specific container element.&#x20;
+
+You can customize the [render mode, layouts and styling](../../embedded-ui/render-modes-layouts-and-styling.md).
 
 <figure><img src="../../.gitbook/assets/Screenshot 2024-12-09 at 10.43.54 AM.png" alt="" width="563"><figcaption></figcaption></figure>
 
 _Note: If you want to directly connect an app, use_ [_`connectApp()`_](./#connect-appname)_._
 
 ```javascript
-integry.showApps(
-  IntegryJS.RenderModes.INLINE,
-  "marketplace-container"
-).then(() => {
-  console.log("Marketplace rendered in-line.");
-}).catch((error) => {
-  console.error("Error rendering filtered marketplace:", error);
+integry.showApps({
+  renderMode: IntegryJS.RenderModes.MODAL,
+  containerId: 'integry-marketplace',
+  layout: IntegryJS.Layouts.WIDE,
+  fetchAll: false,
+  useLoadMoreButton: true,
+  authOnly: false,
 });
 ```
 
 #### Method parameters
 
-<table><thead><tr><th width="182.77734375">Name</th><th width="92">Type</th><th width="320">Description</th><th>Required</th></tr></thead><tbody><tr><td><code>renderMode</code></td><td>string</td><td>Specifies the mode in which the marketplace will be rendered. Allowed values: <code>IntegryJS.RenderModes.MODAL</code>, <code>IntegryJS.RenderModes.INLINE</code>. Defaults to <code>MODAL</code> if not specified.</td><td>false</td></tr><tr><td><code>containerId</code></td><td>string</td><td>The ID of the HTML container in which the marketplace content will be rendered.</td><td>true if <code>renderMode=IntegryJS.RenderModes.INLINE</code></td></tr><tr><td><code>layout</code></td><td>string</td><td>Specifies the layout. Allowed values: <code>IntegryJS.Layouts.WIDE</code>, <code>IntegryJS.Layouts.NARROW</code>. Defaults to <code>WIDE</code> if not specified.</td><td>false</td></tr><tr><td><code>fetchAll</code></td><td>boolean</td><td><p></p><p>Determines whether all apps should be fetched at once or retrieved using pagination.</p><ul><li><strong>Default:</strong> <code>false</code> (uses pagination).</li><li><strong>When <code>true</code></strong>, the method fetches all available apps in a single request instead of making paginated API calls.</li><li><strong>Use case:</strong> Set <code>fetchAll: true</code> if you need to load all the apps at once.</li></ul></td><td>false</td></tr><tr><td><code>useLoadMoreButton</code></td><td>boolean</td><td>If set to <code>true</code>, the app list will disable infinite scroll and instead display a <strong>"Load More"</strong> button at the bottom. Users will need to manually click this button to fetch additional apps.<br>When <code>false</code>, more results will be automatically loaded as the user scrolls to the end of the list.</td><td>false</td></tr></tbody></table>
+<table><thead><tr><th width="182.77734375">Name</th><th width="92">Type</th><th width="320">Description</th><th>Required</th></tr></thead><tbody><tr><td><code>renderMode</code></td><td>string</td><td>Specifies the mode in which the marketplace will be rendered. Allowed values: <code>IntegryJS.RenderModes.MODAL</code>, <code>IntegryJS.RenderModes.INLINE</code>. Defaults to <code>MODAL</code> if not specified.</td><td>false</td></tr><tr><td><code>containerId</code></td><td>string</td><td>The ID of the HTML container in which the marketplace content will be rendered.</td><td>true if <code>renderMode=IntegryJS.RenderModes.INLINE</code></td></tr><tr><td><code>layout</code></td><td>string</td><td>Specifies the layout. Allowed values: <code>IntegryJS.Layouts.WIDE</code>, <code>IntegryJS.Layouts.NARROW</code>. Defaults to <code>WIDE</code> if not specified.</td><td>false</td></tr><tr><td><code>fetchAll</code></td><td>boolean</td><td><p></p><p>Determines whether all apps should be fetched at once or retrieved using pagination.</p><ul><li><strong>Default:</strong> <code>false</code> (uses pagination).</li><li><strong>When <code>true</code></strong>, the method fetches all available apps in a single request instead of making paginated API calls.</li><li><strong>Use case:</strong> Set <code>fetchAll: true</code> if you need to load all the apps at once.</li></ul></td><td>false</td></tr><tr><td><code>useLoadMoreButton</code></td><td>boolean</td><td>If set to <code>true</code>, the app list will disable infinite scroll and instead display a <strong>"Load More"</strong> button at the bottom. Users will need to manually click this button to fetch additional apps.<br>When <code>false</code>, more results will be automatically loaded as the user scrolls to the end of the list.</td><td>false</td></tr><tr><td><code>authOnly</code></td><td>boolean</td><td>If <code>true</code>, skips showing the marketplace and only handles app authentication flow.</td><td>false</td></tr></tbody></table>
 
 #### Emits events
 
