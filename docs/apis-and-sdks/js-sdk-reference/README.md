@@ -104,6 +104,8 @@ const integry = new IntegryJS({
 
 ### Language Support (`lang`)
 
+> Available in SDK v4.8.0 and above ✅
+
 The Integry JS SDK now supports setting a **UI language** through the `lang` parameter in the initialization options. This controls the language used for all SDK-rendered UI elements such as buttons, labels, menus, and prompts.
 
 **Usage**
