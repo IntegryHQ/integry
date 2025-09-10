@@ -91,7 +91,7 @@ const integry = new IntegryJS({
     user: {
         userId: userId,
     },
-    lang: 'en', // Supported values: 'en', 'es', 'fr', 'ja'
+    lang: 'en', // Supported values: 'en', 'es', 'fr', 'ja', 'pt-BR'
     options: { 
         title: "Apps", // Only relevant if you call showApps()
         tags: [],
