@@ -875,17 +875,41 @@ This method returns a `result` object with the function's signature.
 
 ## Flows
 
+### Show a flow
+
+renderFlowSetupForm`(data)`
+
+Renders a **Flow Setup Form** (for creating or configuring a flow) or opens an existing **Integration Edit** view if an integration ID is provided.
+
+**Signature**
+
+```javascript
+public renderFlowSetupForm = (data: {
+  flowId?: string;
+  integrationId?: number;
+  flowContainerId: string;
+  versionId?: number;
+  viewStyle?: string;
+}): void
+```
+
+#### **Parameters**
+
+| Name              | Type                  | Required | Description                                                                                                                                          |
+| ----------------- | --------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `flowId`          | `string` _(optional)_ | Yes      | The ID of the flow to render or edit. If not provided, the method attempts to read it from the URL (`flowId` query param).                           |
+| `integrationId`   | `number` _(optional)_ | No       | The ID of the integration to edit. If provided, the integration edit mode opens. Otherwise, it is read from the SDK configuration or URL parameters. |
+| `flowContainerId` | `string`              | **Yes**  | The ID of the target HTML element in which the flow setup form or integration editor will be rendered.                                               |
+| `versionId`       | `number` _(optional)_ | No       | Version ID of the flow (if applicable).                                                                                                              |
+| `viewStyle`       | `string` _(optional)_ | No       | Controls the form layout or spacing style (e.g., `COMFORTABLE`, `COMPACT`). Defaults to `COMFORTABLE`.                                               |
+
 ### Show flows (Coming soon)
 
 `showFlows(renderMode, containerID, layout, appName)`
 
 Show flows in your workspace. You can filter by app. Coming soon!
 
-### Show a flow (Coming soon)
 
-`showFlow(flowID, renderMode, containerID, layout)`
-
-Show a flow in your workspace. Coming soon!
 
 ### Create an integration (Coming soon)
 
