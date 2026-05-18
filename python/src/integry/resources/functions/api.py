@@ -142,6 +142,7 @@ class Functions(BaseResource):
         arguments: dict[str, Any],
         user_id: str,
         variables: Optional[dict[str, Any]] = None,
+        connected_account_id: Optional[int] = None,
     ) -> FunctionCallOutput:
         """
         Calls a function with the given arguments and variables.
@@ -162,8 +163,12 @@ class Functions(BaseResource):
             # TODO: Remove this once LangChain supports aliases in the arguments schema.
             arguments["_cursor"] = arguments["cursor"]
 
+        url = f"{self.name}/{function_name}/call/"
+        if connected_account_id is not None:
+            url += f"?connected_account_id={connected_account_id}"
+
         response = await self.http_client.post(
-            f"{self.name}/{function_name}/call/",
+            url,
             headers=self._get_signed_request_headers(user_id),
             json={**arguments, "_variables": variables},
         )

@@ -309,8 +309,9 @@ class Function(BaseModel):
         user_id: str,
         arguments: dict[str, Any],
         variables: Optional[dict[str, Any]] = None,
+        connected_account_id: Optional[int] = None,
     ) -> FunctionCallOutput:
-        return await self._resource.call(self.name, arguments, user_id, variables)
+        return await self._resource.call(self.name, arguments, user_id, variables, connected_account_id)
 
     def _get_callable(
         self, user_id: str, variables: Optional[dict[str, Any]] = None
