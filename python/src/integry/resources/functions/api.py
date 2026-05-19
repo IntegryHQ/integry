@@ -25,6 +25,7 @@ class Functions(BaseResource):
         type: Optional[Literal["ACTION", "QUERY"]] = None,
         cursor: str = "",
         include: Optional[IncludeOptions] = None,
+        search: str = "",
     ) -> AsyncPaginator[Function, FunctionsPage]:
         """
         Lists all functions.
@@ -36,11 +37,12 @@ class Functions(BaseResource):
             type: The type to filter functions by.
             cursor: Provide  the cursor from last page to fetch the next page of functions.
             include: The fields to include with the functions.
+            search: Keywords to use for searching functions.
 
         Returns:
             List of functions.
         """
-        query_string = self._get_query_string(include, app, connected_only, type)
+        query_string = self._get_query_string(include, app, connected_only, type, False, search)
         return AsyncPaginator(
             self,
             user_id,
@@ -246,6 +248,7 @@ class Functions(BaseResource):
         connected_only: bool | None,
         type: FunctionType | None,
         predict_arguments: bool = False,
+        search: str = "",
     ) -> str:
         query_params: dict[str, Any] = {}
         if include:
@@ -259,6 +262,9 @@ class Functions(BaseResource):
 
         if predict_arguments:
             query_params["predict_arguments"] = "true" if predict_arguments else "false"
+
+        if search:
+            query_params["search"] = search
 
         query_string = urlencode(query_params, doseq=False)
         if query_string:
