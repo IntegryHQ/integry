@@ -338,6 +338,27 @@ if predictions:
     await function(user_id, function.arguments)
 ```
 
+# Calling a function with a specific connected account
+
+If a user has multiple connected accounts for the same app, pass `connected_account_id`
+to target a specific account when calling a function:
+
+```python
+await integry.functions.call(
+    "slack-post-message",
+    arguments={"channel": "#general", "text": "Hello"},
+    user_id=user_id,
+    connected_account_id=12345,
+)
+
+# Or via the Function instance:
+await function(
+    user_id,
+    arguments={"channel": "#general", "text": "Hello"},
+    connected_account_id=12345,
+)
+```
+
 # Pagination
 List methods are paginated and allow you to iterate over data without handling pagination manually.
 ```python

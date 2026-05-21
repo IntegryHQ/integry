@@ -1,4 +1,4 @@
-from typing import Any, Literal, Optional, List
+from typing import Any, Literal, Optional, List, TypedDict
 
 import httpx
 
@@ -13,6 +13,11 @@ from .types import (
     PaginatedFunctionCallOutput,
 )
 from urllib.parse import urlencode
+
+
+class CallResponseHeaders(TypedDict):
+    credits: Optional[int]
+    session_id: Optional[str]
 
 
 class Functions(BaseResource):
@@ -178,11 +183,12 @@ class Functions(BaseResource):
             self._raise_function_call_exception(response)
 
         data = self._get_response_data_or_raise(response)
+        extra = self._extract_call_headers(response)
 
         if "_cursor" in data:
-            return PaginatedFunctionCallOutput(**data)
+            return PaginatedFunctionCallOutput(**data, **extra)
 
-        return FunctionCallOutput(**data)
+        return FunctionCallOutput(**data, **extra)
 
     def call_sync(
         self,
@@ -219,11 +225,20 @@ class Functions(BaseResource):
             self._raise_function_call_exception(response)
 
         data = self._get_response_data_or_raise(response)
+        extra = self._extract_call_headers(response)
 
         if "_cursor" in data:
-            return PaginatedFunctionCallOutput(**data)
+            return PaginatedFunctionCallOutput(**data, **extra)
 
-        return FunctionCallOutput(**data)
+        return FunctionCallOutput(**data, **extra)
+
+    @staticmethod
+    def _extract_call_headers(response: httpx.Response) -> CallResponseHeaders:
+        credits = response.headers.get("X-Credits")
+        return {
+            "credits": int(credits) if credits is not None else None,
+            "session_id": response.headers.get("X-Session-ID"),
+        }
 
     def _raise_function_call_exception(self, response: Any):
         data = response.json()

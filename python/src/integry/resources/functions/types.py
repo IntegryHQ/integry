@@ -62,6 +62,8 @@ JSONSchemaType = Annotated[
 class FunctionCallOutput(BaseModel):
     network_code: int
     output: Any
+    credits: Optional[int] = None
+    session_id: Optional[str] = None
 
 
 class PaginatedFunctionCallOutput(FunctionCallOutput):
