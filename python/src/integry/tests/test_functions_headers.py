@@ -42,6 +42,45 @@ async def test_call_headers_absent_returns_none():
     assert result.session_id is None
 
 
+@pytest.mark.asyncio
+async def test_call_passes_allow_workspace_connected_accounts_query_param():
+    integry = Integry(app_key="k", app_secret="s")
+    response = _make_response({"network_code": 200, "output": {}})
+
+    mock_post = AsyncMock(return_value=response)
+    with patch.object(integry, "post", mock_post):
+        await integry.functions.call("foo", {}, user_id="u")
+
+    call_url = mock_post.call_args.args[0]
+    assert "allow_workspace_connected_accounts=true" in call_url
+
+
+@pytest.mark.asyncio
+async def test_call_with_connected_account_id_also_includes_allow_workspace_flag():
+    integry = Integry(app_key="k", app_secret="s")
+    response = _make_response({"network_code": 200, "output": {}})
+
+    mock_post = AsyncMock(return_value=response)
+    with patch.object(integry, "post", mock_post):
+        await integry.functions.call("foo", {}, user_id="u", connected_account_id=42)
+
+    call_url = mock_post.call_args.args[0]
+    assert "connected_account_id=42" in call_url
+    assert "allow_workspace_connected_accounts=true" in call_url
+
+
+def test_call_sync_passes_allow_workspace_connected_accounts_query_param():
+    integry = Integry(app_key="k", app_secret="s")
+    response = _make_response({"network_code": 200, "output": {}})
+
+    mock_post = MagicMock(return_value=response)
+    with patch("integry.resources.functions.api.httpx.post", mock_post):
+        integry.functions.call_sync("foo", {}, user_id="u")
+
+    call_url = mock_post.call_args.args[0]
+    assert "allow_workspace_connected_accounts=true" in call_url
+
+
 def test_call_sync_returns_credits_and_session_id_from_headers():
     integry = Integry(app_key="k", app_secret="s")
     response = _make_response(

@@ -170,9 +170,9 @@ class Functions(BaseResource):
             # TODO: Remove this once LangChain supports aliases in the arguments schema.
             arguments["_cursor"] = arguments["cursor"]
 
-        url = f"{self.name}/{function_name}/call/"
+        url = f"{self.name}/{function_name}/call/?allow_workspace_connected_accounts=true"
         if connected_account_id is not None:
-            url += f"?connected_account_id={connected_account_id}"
+            url += f"&connected_account_id={connected_account_id}"
 
         response = await self.http_client.post(
             url,
@@ -217,7 +217,7 @@ class Functions(BaseResource):
             arguments["_cursor"] = arguments["cursor"]
 
         response = httpx.post(
-            f"{self.http_client.base_url}/{self.name}/{function_name}/call/",
+            f"{self.http_client.base_url}/{self.name}/{function_name}/call/?allow_workspace_connected_accounts=true",
             headers=self._get_signed_request_headers(user_id),
             json={**arguments, "_variables": variables},
         )
