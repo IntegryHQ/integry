@@ -67,7 +67,7 @@ class FunctionCallOutput(BaseModel):
 
 
 class PaginatedFunctionCallOutput(FunctionCallOutput):
-    cursor: str = Field(alias="_cursor")
+    cursor: Any = Field(alias="_cursor")
 
 
 class Function(BaseModel):
